@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Form1
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class Form1
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.ClockTxt = New System.Windows.Forms.Label()
@@ -47,9 +47,6 @@ Partial Class Form1
         Me.RefreshTimer = New System.Windows.Forms.Timer(Me.components)
         Me.Label17 = New System.Windows.Forms.Label()
         Me.LoadOrders = New System.ComponentModel.BackgroundWorker()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.SurfacePickerVersionTxt = New System.Windows.Forms.Label()
-        Me.UpdatedTxt = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'ClockTxt
@@ -332,53 +329,12 @@ Partial Class Form1
         '
         Me.LoadOrders.WorkerReportsProgress = True
         '
-        'Label1
-        '
-        Me.Label1.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 72.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label1.Location = New System.Drawing.Point(46, 900)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(1002, 130)
-        Me.Label1.TabIndex = 44
-        Me.Label1.Text = "Surface Picker Version:"
-        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'SurfacePickerVersionTxt
-        '
-        Me.SurfacePickerVersionTxt.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.SurfacePickerVersionTxt.Font = New System.Drawing.Font("Segoe UI", 72.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SurfacePickerVersionTxt.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.SurfacePickerVersionTxt.Location = New System.Drawing.Point(1054, 900)
-        Me.SurfacePickerVersionTxt.Name = "SurfacePickerVersionTxt"
-        Me.SurfacePickerVersionTxt.Size = New System.Drawing.Size(809, 130)
-        Me.SurfacePickerVersionTxt.TabIndex = 45
-        Me.SurfacePickerVersionTxt.Text = "0.0.0.0"
-        Me.SurfacePickerVersionTxt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'UpdatedTxt
-        '
-        Me.UpdatedTxt.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.UpdatedTxt.AutoSize = True
-        Me.UpdatedTxt.Font = New System.Drawing.Font("Segoe UI", 72.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.UpdatedTxt.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.UpdatedTxt.Location = New System.Drawing.Point(39, 772)
-        Me.UpdatedTxt.Name = "UpdatedTxt"
-        Me.UpdatedTxt.Size = New System.Drawing.Size(450, 128)
-        Me.UpdatedTxt.TabIndex = 47
-        Me.UpdatedTxt.Text = "Updated!"
-        Me.UpdatedTxt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.UpdatedTxt.Visible = False
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Black
         Me.ClientSize = New System.Drawing.Size(1904, 1041)
-        Me.Controls.Add(Me.UpdatedTxt)
-        Me.Controls.Add(Me.SurfacePickerVersionTxt)
-        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Label25)
         Me.Controls.Add(Me.Label24)
         Me.Controls.Add(Me.ReloadingOrddefLabel)
@@ -433,7 +389,4 @@ Partial Class Form1
     Friend WithEvents RefreshTimer As Timer
     Friend WithEvents Label17 As Label
     Friend WithEvents LoadOrders As System.ComponentModel.BackgroundWorker
-    Friend WithEvents Label1 As Label
-    Friend WithEvents SurfacePickerVersionTxt As Label
-    Friend WithEvents UpdatedTxt As Label
 End Class

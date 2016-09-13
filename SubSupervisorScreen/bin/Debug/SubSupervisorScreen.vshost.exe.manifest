@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="SubSupervisorScreen.exe" version="1.1.0.6" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="SubSupervisorScreen.exe" version="1.1.0.8" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
   <application />
   <entryPoint>
     <assemblyIdentity name="SubSupervisorScreen" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
@@ -49,7 +49,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>aDcOPxIho7rNPFICBaGayhqnNXiNK1+Phwrv1KaaYAk=</dsig:DigestValue>
+        <dsig:DigestValue>kQLKdKtOa7C3E0+R0mVjceAQf/Z5Ujap58WxP9MI5FU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -78,26 +78,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SubSupervisorScreen.exe" size="32656">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SubSupervisorScreen.exe" size="29584">
       <assemblyIdentity name="SubSupervisorScreen" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>m51lWiTNqXK+ozFjHvMfKovdMRrofzVZxOfMzWIhCxs=</dsig:DigestValue>
+        <dsig:DigestValue>dLiP4idV4eelgiJibIdHtUYcHQC745Hw6q2FHsxPcEU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WHLClasses.dll" size="294912">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WHLClasses.dll" size="295424">
       <assemblyIdentity name="WHLClasses" version="1.0.0.0" publicKeyToken="4060900C02491731" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>T1KcQgam10E/ok1S7+dFbXE0OHUGpeBSIlVeUKNWwgQ=</dsig:DigestValue>
+        <dsig:DigestValue>4vkMfqy9uxi8rwR4PXG/ILamBCJeaBa8G3DaRDr0+Jg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

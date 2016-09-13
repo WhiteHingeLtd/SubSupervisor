@@ -27,8 +27,16 @@ Public Class Form1
             fiveminticker += 1 'Increment timer.
 
             If fiveminticker >= 20 Then '10 seconds
-                ReloadingOrddefLabel.Text = "Refreshing order data"
-                LoadOrders.RunWorkerAsync()
+
+                If My.Application.Deployment.CheckForUpdate Then
+                    My.Application.Deployment.Update()
+                    Application.Restart()
+                Else
+                    ReloadingOrddefLabel.Text = "Refreshing order data"
+                    LoadOrders.RunWorkerAsync()
+                End If
+
+
             ElseIf fiveminticker >= 3 Then '3 seconds
                 ReloadingOrddefLabel.Text = "Refresh in " + (20 - fiveminticker).ToString + " seconds" 'Time to next refresh.
             End If
@@ -109,38 +117,38 @@ Public Class Form1
 
 
         'Change surface picker version text
-        Try
-            Dim folderlist As List(Of String) = My.Computer.FileSystem.GetDirectories("\\WIN-NOHLS1H9ER8\Data Storage\Intra\AppPublish\SurfacePicker\Application Files\").ToList
-            Dim latestFile As DateTime = "01/01/2016"
-            Dim finalfolder As String = ""
-            For Each folder In folderlist
-                Dim newinfo As IO.DirectoryInfo = My.Computer.FileSystem.GetDirectoryInfo(folder)
-                If newinfo.CreationTime > latestFile Then
-                    latestFile = newinfo.CreationTime
-                    finalfolder = folder
+        'Try
+        '    Dim folderlist As List(Of String) = My.Computer.FileSystem.GetDirectories("\\WIN-NOHLS1H9ER8\Data Storage\Intra\AppPublish\SurfacePicker\Application Files\").ToList
+        '    Dim latestFile As DateTime = "01/01/2016"
+        '    Dim finalfolder As String = ""
+        '    For Each folder In folderlist
+        '        Dim newinfo As IO.DirectoryInfo = My.Computer.FileSystem.GetDirectoryInfo(folder)
+        '        If newinfo.CreationTime > latestFile Then
+        '            latestFile = newinfo.CreationTime
+        '            finalfolder = folder
 
-                End If
-            Next
-            finalfolder = finalfolder.Replace("\\WIN-NOHLS1H9ER8\Data Storage\Intra\AppPublish\SurfacePicker\Application Files\SurfacePicker_", "").Replace("_", ".")
+        '        End If
+        '    Next
+        '    finalfolder = finalfolder.Replace("\\WIN-NOHLS1H9ER8\Data Storage\Intra\AppPublish\SurfacePicker\Application Files\SurfacePicker_", "").Replace("_", ".")
 
-            If Not finalfolder = SurfacePickerVersionTxt.Text Then
-                SurfacePickerVersionTxt.Text = finalfolder
-                If Not LookForVersionUpdate Then
+        '    If Not finalfolder = SurfacePickerVersionTxt.Text Then
+        '        SurfacePickerVersionTxt.Text = finalfolder
+        '        If Not LookForVersionUpdate Then
 
-                    LookForVersionUpdate = True
-                Else
-                    UpdateCount += 1
-                    UpdatedTxt.Visible = True
-                    If UpdateCount = 1 Then
-                        UpdatedTxt.Text = "Updated at " + Now.ToString("dd/MM/yy HH:mm") + "!"
-                    Else
-                        UpdatedTxt.Text = "Update " + UpdateCount.ToString + " at " + Now.ToString("dd/MM/yy HH:mm") + "!"
-                    End If
-                End If
-            End If
-        Catch ex As Exception
+        '            LookForVersionUpdate = True
+        '        Else
+        '            UpdateCount += 1
+        '            UpdatedTxt.Visible = True
+        '            If UpdateCount = 1 Then
+        '                UpdatedTxt.Text = "Updated at " + Now.ToString("dd/MM/yy HH:mm") + "!"
+        '            Else
+        '                UpdatedTxt.Text = "Update " + UpdateCount.ToString + " at " + Now.ToString("dd/MM/yy HH:mm") + "!"
+        '            End If
+        '        End If
+        '    End If
+        'Catch ex As Exception
 
-        End Try
+        'End Try
 
     End Sub
     Private LookForVersionUpdate As Boolean = False
@@ -258,10 +266,10 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub UpdatedTxt_Click(sender As Object, e As EventArgs) Handles UpdatedTxt.Click
-        UpdateCount = 0
-        UpdatedTxt.Visible = False
-    End Sub
+    'Private Sub UpdatedTxt_Click(sender As Object, e As EventArgs) Handles UpdatedTxt.Click
+    '    UpdateCount = 0
+    '    UpdatedTxt.Visible = False
+    'End Sub
 
 
 
