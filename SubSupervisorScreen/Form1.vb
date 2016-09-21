@@ -18,7 +18,15 @@ Public Class Form1
 
         fiveminticker = 16
         RefreshTimer.Enabled = True
+
+        TodaysProgress.Minimum = 0
+        TodaysProgress.Value = 0
+        TodaysProgress.Maximum = 100
     End Sub
+
+    Dim newDay As Boolean = False
+    Dim targetTotal As Integer = 0
+    Dim totalforavgsales As Integer = 0
 
     'THIS STUFF WORKS. That's the only reason it's used. A worker would be nice but it decided it was going on a permanent holiday to comment hell. RIP.
     Private Sub TickTime() Handles RefreshTimer.Tick
@@ -27,21 +35,67 @@ Public Class Form1
             fiveminticker += 1 'Increment timer.
 
             If fiveminticker >= 20 Then '10 seconds
+                Try
+                    If My.Application.Deployment.CheckForUpdate Then
+                        My.Application.Deployment.Update()
+                        Application.Restart()
+                    End If
+                Catch ex As Deployment.Application.InvalidDeploymentException
 
-                If My.Application.Deployment.CheckForUpdate Then
-                    My.Application.Deployment.Update()
-                    Application.Restart()
-                Else
-                    ReloadingOrddefLabel.Text = "Refreshing order data"
-                    LoadOrders.RunWorkerAsync()
+                End Try
+                ReloadingOrddefLabel.Text = "Refreshing order data"
+                LoadOrders.RunWorkerAsync()
+                If Not SevenDaysAgoTitleLbl.Text.Replace("Orders Last ", "") = Today.DayOfWeek.ToString Then
+                    SevenDaysAgoTitleLbl.Text = "Orders Last " + Today.DayOfWeek.ToString 'Why do people leave this on overnight? Now we gotta refresh it every day.
+                    newDay = True
                 End If
-
 
             ElseIf fiveminticker >= 3 Then '3 seconds
                 ReloadingOrddefLabel.Text = "Refresh in " + (20 - fiveminticker).ToString + " seconds" 'Time to next refresh.
             End If
         End If
+
+        If newDay Then
+            Try
+                Dim saletotalcollection As ArrayList = MySql.SelectData("SELECT subsourceText, totalDate, totalValue, TLSource FROM whldata.newsales_dailysourcetotals;")
+                Dim totalESalesLastWeek As Integer = 0
+                Dim totalASalesLastWeek As Integer = 0
+                Dim totalWSalesLastWeek As Integer = 0
+                totalforavgsales = 0
+                For Each selection In saletotalcollection
+                    If selection(1) = Today.AddDays(-7).ToString("yyyy-MM-dd") Then 'Get the day
+                        If selection(3) = "EBAY" Then
+                            totalESalesLastWeek += selection(2)
+                        ElseIf selection(3) = "AMAZON" Then
+                            totalASalesLastWeek += selection(2)
+                        ElseIf selection(3) = "MAGENTO" Then
+                            totalWSalesLastWeek += selection(2)
+                        ElseIf selection(0) = "" And selection(3) = "DIRECT" Then
+                            totalWSalesLastWeek += selection(2)
+                        End If
+                        totalforavgsales += selection(2)
+                    ElseIf selection(1) = Today.AddDays(-14).ToString("yyyy-MM-dd") Then 'Get the day
+                        totalforavgsales += selection(2)
+                    ElseIf selection(1) = Today.AddDays(-21).ToString("yyyy-MM-dd") Then 'Get the day
+                        totalforavgsales += selection(2)
+                    ElseIf selection(1) = Today.AddDays(-28).ToString("yyyy-MM-dd") Then 'Get the day
+                        totalforavgsales += selection(2)
+                    End If
+                Next
+                SevenDaysAgoEbayLbl.Text = totalESalesLastWeek.ToString
+                SevenDaysAgoAmazonLbl.Text = totalASalesLastWeek.ToString
+                SevenDaysAgoWebsiteLbl.Text = totalWSalesLastWeek.ToString
+                newDay = False
+                targetTotal = totalESalesLastWeek + totalASalesLastWeek + totalWSalesLastWeek
+                TodaysProgress.Minimum = 0
+                TodaysProgress.Value = 0
+                TodaysProgress.Maximum = targetTotal
+            Catch ex As Exception
+            End Try
+        End If
+
         ClockTxt.Text = Now.ToString("HH:mm:ss")
+
     End Sub
 
     Private Sub RefreshOrddef()
@@ -100,6 +154,30 @@ Public Class Form1
         MissingItemCount.Text = CurrentOrddef.GetByStatus(OrderStatus._Oversold).Count.ToString
 
         totalsCount.Text = (CurrentOrddef.GetByStatus(OrderStatus._New).Count) + (CurrentOrddef.GetByStatus(OrderStatus._Picking).Count) + (CurrentOrddef.GetByStatus(OrderStatus._Picked).Count) + (CurrentOrddef.GetByStatus(OrderStatus._Packing).Count) + (CurrentOrddef.GetByStatus(OrderStatus._Packed).Count) + (CurrentOrddef.GetByStatus(OrderStatus._Prepack).Count) + (CurrentOrddef.GetByStatus(OrderStatus._Cantfind).Count) + (CurrentOrddef.GetByStatus(OrderStatus._Oversold).Count).ToString
+        If totalsCount.Text = "0" Or totalsCount.Text = "-" Then
+            TodaysProgress.Value = TodaysProgress.Maximum
+            TodaysProgress.ForeColor = Color.Blue
+        ElseIf TodaysProgress.Maximum > totalsCount.Text Then
+            TodaysProgress.Value = totalsCount.Text
+            If (targetTotal / 5) > totalsCount.Text Then
+                TodaysProgress.ForeColor = Color.Red
+            ElseIf ((targetTotal / 5) * 3) < totalsCount.Text Then
+                TodaysProgress.ForeColor = Color.Green
+            Else
+                TodaysProgress.ForeColor = Color.Yellow
+            End If
+        Else
+            TodaysProgress.Value = TodaysProgress.Maximum
+            TodaysProgress.ForeColor = Color.Green
+        End If
+
+        If totalsCount.Text < totalforavgsales / 4 Then
+            AvgDownPanel.Visible = True
+            AvgUpPanel.Visible = False
+        Else
+            AvgDownPanel.Visible = False
+            AvgUpPanel.Visible = True
+        End If
 
         '--------------------------------------------------- NEW STUFF BELOW ---------------------------------------------------------
 

@@ -149,7 +149,7 @@
     <None Include="SubSupervisorScreen_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Z:\.V5\Documents Backup\Doc Backup\Projects\LinnworksDOTNETApi\LinnworksAPI.csproj">
+    <ProjectReference Include="..\..\..\..\Documents\Projects\LinnworksNetSDK\Linnworks\src\net\LinnworksAPI\LinnworksAPI.csproj">
       <Project>{121d410c-db32-4245-996f-3b1134b0f181}</Project>
       <Name>LinnworksAPI</Name>
     </ProjectReference>
@@ -169,6 +169,10 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RedArrowIcon.png" />
+    <None Include="Resources\GrnArrowIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
