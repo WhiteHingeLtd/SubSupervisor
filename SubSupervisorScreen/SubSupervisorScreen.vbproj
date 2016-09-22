@@ -25,7 +25,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://apps.ad.whitehinge.com/AppPublish/SSS/</InstallUrl>
-    <ApplicationRevision>10</ApplicationRevision>
+    <ApplicationRevision>14</ApplicationRevision>
     <ApplicationVersion>1.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -173,6 +173,16 @@
   <ItemGroup>
     <None Include="Resources\RedArrowIcon.png" />
     <None Include="Resources\GrnArrowIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\GreenLightIcon.png" />
+    <Content Include="Resources\GreenLightIconDark.png" />
+    <Content Include="Resources\GrnArrowIconDark.png" />
+    <Content Include="Resources\OrangeLightIcon.png" />
+    <Content Include="Resources\OrangeLightIconDark.png" />
+    <Content Include="Resources\RedArrowIconDark.png" />
+    <Content Include="Resources\RedLightIcon.png" />
+    <Content Include="Resources\RedLightIconDark.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

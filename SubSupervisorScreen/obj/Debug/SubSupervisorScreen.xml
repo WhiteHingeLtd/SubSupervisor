@@ -22,12 +22,52 @@ SubSupervisorScreen
   resource lookups using this strongly typed resource class.
 </summary>
 </member>
+<member name="P:SubSupervisorScreen.My.Resources.Resources.GreenLightIcon">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:SubSupervisorScreen.My.Resources.Resources.GreenLightIconDark">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
 <member name="P:SubSupervisorScreen.My.Resources.Resources.GrnArrowIcon">
 <summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
 </member>
+<member name="P:SubSupervisorScreen.My.Resources.Resources.GrnArrowIconDark">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:SubSupervisorScreen.My.Resources.Resources.OrangeLightIcon">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:SubSupervisorScreen.My.Resources.Resources.OrangeLightIconDark">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
 <member name="P:SubSupervisorScreen.My.Resources.Resources.RedArrowIcon">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:SubSupervisorScreen.My.Resources.Resources.RedArrowIconDark">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:SubSupervisorScreen.My.Resources.Resources.RedLightIcon">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:SubSupervisorScreen.My.Resources.Resources.RedLightIconDark">
 <summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>

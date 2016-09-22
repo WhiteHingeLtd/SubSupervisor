@@ -47,7 +47,6 @@ Partial Class Form1
         Me.RefreshTimer = New System.Windows.Forms.Timer(Me.components)
         Me.Label17 = New System.Windows.Forms.Label()
         Me.LoadOrders = New System.ComponentModel.BackgroundWorker()
-        Me.SevenDaysAgoTitleLbl = New System.Windows.Forms.Label()
         Me.SevenDaysAgoEbayLbl = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -56,12 +55,27 @@ Partial Class Form1
         Me.SevenDaysAgoWebsiteLbl = New System.Windows.Forms.Label()
         Me.TodaysProgress = New System.Windows.Forms.ProgressBar()
         Me.AvgUpPanel = New System.Windows.Forms.Panel()
-        Me.AvgDownPanel = New System.Windows.Forms.Panel()
         Me.CoolButton1 = New WHLClasses.Controls.CoolButton()
+        Me.AvgDownPanel = New System.Windows.Forms.Panel()
         Me.CoolButton2 = New WHLClasses.Controls.CoolButton()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.CompareToAvgLbl = New System.Windows.Forms.Label()
+        Me.RedLightPanel = New System.Windows.Forms.Panel()
+        Me.RedLightTxt = New System.Windows.Forms.Label()
+        Me.CoolButton3 = New WHLClasses.Controls.CoolButton()
+        Me.OrangeLightPanel = New System.Windows.Forms.Panel()
+        Me.OrangeLightTxt = New System.Windows.Forms.Label()
+        Me.CoolButton4 = New WHLClasses.Controls.CoolButton()
+        Me.GreenLightPanel = New System.Windows.Forms.Panel()
+        Me.GreenLightTxt = New System.Windows.Forms.Label()
+        Me.CoolButton5 = New WHLClasses.Controls.CoolButton()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.SevenDaysAgoTitleLbl = New System.Windows.Forms.Label()
         Me.AvgUpPanel.SuspendLayout()
         Me.AvgDownPanel.SuspendLayout()
+        Me.RedLightPanel.SuspendLayout()
+        Me.OrangeLightPanel.SuspendLayout()
+        Me.GreenLightPanel.SuspendLayout()
         Me.SuspendLayout()
         '
         'ClockTxt
@@ -317,7 +331,7 @@ Partial Class Form1
         Me.ReloadingOrddefLabel.AutoSize = True
         Me.ReloadingOrddefLabel.Font = New System.Drawing.Font("Segoe UI", 36.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ReloadingOrddefLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.ReloadingOrddefLabel.Location = New System.Drawing.Point(12, 9)
+        Me.ReloadingOrddefLabel.Location = New System.Drawing.Point(301, 9)
         Me.ReloadingOrddefLabel.Name = "ReloadingOrddefLabel"
         Me.ReloadingOrddefLabel.Size = New System.Drawing.Size(47, 65)
         Me.ReloadingOrddefLabel.TabIndex = 43
@@ -343,18 +357,6 @@ Partial Class Form1
         'LoadOrders
         '
         Me.LoadOrders.WorkerReportsProgress = True
-        '
-        'SevenDaysAgoTitleLbl
-        '
-        Me.SevenDaysAgoTitleLbl.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.SevenDaysAgoTitleLbl.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.SevenDaysAgoTitleLbl.Font = New System.Drawing.Font("Segoe UI", 21.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SevenDaysAgoTitleLbl.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.SevenDaysAgoTitleLbl.Location = New System.Drawing.Point(760, 662)
-        Me.SevenDaysAgoTitleLbl.Name = "SevenDaysAgoTitleLbl"
-        Me.SevenDaysAgoTitleLbl.Size = New System.Drawing.Size(360, 60)
-        Me.SevenDaysAgoTitleLbl.TabIndex = 44
-        Me.SevenDaysAgoTitleLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'SevenDaysAgoEbayLbl
         '
@@ -436,7 +438,7 @@ Partial Class Form1
         Me.TodaysProgress.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TodaysProgress.BackColor = System.Drawing.SystemColors.Control
-        Me.TodaysProgress.Location = New System.Drawing.Point(4, 889)
+        Me.TodaysProgress.Location = New System.Drawing.Point(4, 974)
         Me.TodaysProgress.Name = "TodaysProgress"
         Me.TodaysProgress.Size = New System.Drawing.Size(1896, 62)
         Me.TodaysProgress.Style = System.Windows.Forms.ProgressBarStyle.Continuous
@@ -444,25 +446,12 @@ Partial Class Form1
         '
         'AvgUpPanel
         '
-        Me.AvgUpPanel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.AvgUpPanel.Controls.Add(Me.CoolButton1)
-        Me.AvgUpPanel.Location = New System.Drawing.Point(4, 203)
+        Me.AvgUpPanel.Location = New System.Drawing.Point(4, 69)
         Me.AvgUpPanel.Name = "AvgUpPanel"
         Me.AvgUpPanel.Size = New System.Drawing.Size(276, 284)
         Me.AvgUpPanel.TabIndex = 52
         Me.AvgUpPanel.Visible = False
-        '
-        'AvgDownPanel
-        '
-        Me.AvgDownPanel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.AvgDownPanel.Controls.Add(Me.CoolButton2)
-        Me.AvgDownPanel.Location = New System.Drawing.Point(4, 493)
-        Me.AvgDownPanel.Name = "AvgDownPanel"
-        Me.AvgDownPanel.Size = New System.Drawing.Size(276, 279)
-        Me.AvgDownPanel.TabIndex = 53
-        Me.AvgDownPanel.Visible = False
         '
         'CoolButton1
         '
@@ -479,9 +468,17 @@ Partial Class Form1
         Me.CoolButton1.Name = "CoolButton1"
         Me.CoolButton1.Size = New System.Drawing.Size(270, 276)
         Me.CoolButton1.TabIndex = 0
-        Me.CoolButton1.Text = "Higher than average"
         Me.CoolButton1.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.CoolButton1.UseVisualStyleBackColor = True
+        '
+        'AvgDownPanel
+        '
+        Me.AvgDownPanel.Controls.Add(Me.CoolButton2)
+        Me.AvgDownPanel.Location = New System.Drawing.Point(4, 439)
+        Me.AvgDownPanel.Name = "AvgDownPanel"
+        Me.AvgDownPanel.Size = New System.Drawing.Size(276, 279)
+        Me.AvgDownPanel.TabIndex = 53
+        Me.AvgDownPanel.Visible = False
         '
         'CoolButton2
         '
@@ -494,26 +491,181 @@ Partial Class Form1
         Me.CoolButton2.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.CoolButton2.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CoolButton2.ForeColor = System.Drawing.SystemColors.ControlLight
-        Me.CoolButton2.Location = New System.Drawing.Point(3, -9)
+        Me.CoolButton2.Location = New System.Drawing.Point(3, 1)
         Me.CoolButton2.Name = "CoolButton2"
         Me.CoolButton2.Size = New System.Drawing.Size(270, 276)
         Me.CoolButton2.TabIndex = 1
-        Me.CoolButton2.Text = "Lower than average"
         Me.CoolButton2.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.CoolButton2.UseVisualStyleBackColor = True
         '
         'Label3
         '
-        Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label3.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.Label3.Font = New System.Drawing.Font("Segoe UI", 21.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label3.Location = New System.Drawing.Point(4, 140)
+        Me.Label3.Location = New System.Drawing.Point(4, 5)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(276, 60)
         Me.Label3.TabIndex = 54
         Me.Label3.Text = "Today's order count"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'CompareToAvgLbl
+        '
+        Me.CompareToAvgLbl.Font = New System.Drawing.Font("Segoe UI", 21.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CompareToAvgLbl.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.CompareToAvgLbl.Location = New System.Drawing.Point(12, 356)
+        Me.CompareToAvgLbl.Name = "CompareToAvgLbl"
+        Me.CompareToAvgLbl.Size = New System.Drawing.Size(254, 81)
+        Me.CompareToAvgLbl.TabIndex = 55
+        Me.CompareToAvgLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'RedLightPanel
+        '
+        Me.RedLightPanel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RedLightPanel.Controls.Add(Me.RedLightTxt)
+        Me.RedLightPanel.Controls.Add(Me.CoolButton3)
+        Me.RedLightPanel.Location = New System.Drawing.Point(1616, 643)
+        Me.RedLightPanel.Name = "RedLightPanel"
+        Me.RedLightPanel.Size = New System.Drawing.Size(276, 279)
+        Me.RedLightPanel.TabIndex = 54
+        Me.RedLightPanel.Visible = False
+        '
+        'RedLightTxt
+        '
+        Me.RedLightTxt.BackColor = System.Drawing.Color.Maroon
+        Me.RedLightTxt.Font = New System.Drawing.Font("Segoe UI", 21.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RedLightTxt.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.RedLightTxt.Location = New System.Drawing.Point(22, 99)
+        Me.RedLightTxt.Name = "RedLightTxt"
+        Me.RedLightTxt.Size = New System.Drawing.Size(232, 81)
+        Me.RedLightTxt.TabIndex = 58
+        Me.RedLightTxt.Text = "Behind Schedule"
+        Me.RedLightTxt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'CoolButton3
+        '
+        Me.CoolButton3.BackgroundImage = Global.SubSupervisorScreen.My.Resources.Resources.RedLightIcon
+        Me.CoolButton3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.CoolButton3.Enabled = False
+        Me.CoolButton3.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(246, Byte), Integer), CType(CType(247, Byte), Integer), CType(CType(248, Byte), Integer))
+        Me.CoolButton3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(218, Byte), Integer), CType(CType(233, Byte), Integer), CType(CType(250, Byte), Integer))
+        Me.CoolButton3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(205, Byte), Integer), CType(CType(228, Byte), Integer), CType(CType(252, Byte), Integer))
+        Me.CoolButton3.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.CoolButton3.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CoolButton3.ForeColor = System.Drawing.SystemColors.ControlLight
+        Me.CoolButton3.Location = New System.Drawing.Point(3, 1)
+        Me.CoolButton3.Name = "CoolButton3"
+        Me.CoolButton3.Size = New System.Drawing.Size(270, 276)
+        Me.CoolButton3.TabIndex = 1
+        Me.CoolButton3.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.CoolButton3.UseVisualStyleBackColor = True
+        '
+        'OrangeLightPanel
+        '
+        Me.OrangeLightPanel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.OrangeLightPanel.Controls.Add(Me.OrangeLightTxt)
+        Me.OrangeLightPanel.Controls.Add(Me.CoolButton4)
+        Me.OrangeLightPanel.Location = New System.Drawing.Point(1616, 358)
+        Me.OrangeLightPanel.Name = "OrangeLightPanel"
+        Me.OrangeLightPanel.Size = New System.Drawing.Size(276, 279)
+        Me.OrangeLightPanel.TabIndex = 55
+        Me.OrangeLightPanel.Visible = False
+        '
+        'OrangeLightTxt
+        '
+        Me.OrangeLightTxt.BackColor = System.Drawing.Color.DarkGoldenrod
+        Me.OrangeLightTxt.Font = New System.Drawing.Font("Segoe UI", 21.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.OrangeLightTxt.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.OrangeLightTxt.Location = New System.Drawing.Point(22, 94)
+        Me.OrangeLightTxt.Name = "OrangeLightTxt"
+        Me.OrangeLightTxt.Size = New System.Drawing.Size(232, 81)
+        Me.OrangeLightTxt.TabIndex = 57
+        Me.OrangeLightTxt.Text = "On Schedule"
+        Me.OrangeLightTxt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'CoolButton4
+        '
+        Me.CoolButton4.BackgroundImage = Global.SubSupervisorScreen.My.Resources.Resources.OrangeLightIcon
+        Me.CoolButton4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.CoolButton4.Enabled = False
+        Me.CoolButton4.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(246, Byte), Integer), CType(CType(247, Byte), Integer), CType(CType(248, Byte), Integer))
+        Me.CoolButton4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(218, Byte), Integer), CType(CType(233, Byte), Integer), CType(CType(250, Byte), Integer))
+        Me.CoolButton4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(205, Byte), Integer), CType(CType(228, Byte), Integer), CType(CType(252, Byte), Integer))
+        Me.CoolButton4.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.CoolButton4.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CoolButton4.ForeColor = System.Drawing.SystemColors.ControlLight
+        Me.CoolButton4.Location = New System.Drawing.Point(3, 1)
+        Me.CoolButton4.Name = "CoolButton4"
+        Me.CoolButton4.Size = New System.Drawing.Size(270, 276)
+        Me.CoolButton4.TabIndex = 1
+        Me.CoolButton4.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.CoolButton4.UseVisualStyleBackColor = True
+        '
+        'GreenLightPanel
+        '
+        Me.GreenLightPanel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GreenLightPanel.Controls.Add(Me.GreenLightTxt)
+        Me.GreenLightPanel.Controls.Add(Me.CoolButton5)
+        Me.GreenLightPanel.Location = New System.Drawing.Point(1616, 74)
+        Me.GreenLightPanel.Name = "GreenLightPanel"
+        Me.GreenLightPanel.Size = New System.Drawing.Size(276, 279)
+        Me.GreenLightPanel.TabIndex = 55
+        Me.GreenLightPanel.Visible = False
+        '
+        'GreenLightTxt
+        '
+        Me.GreenLightTxt.BackColor = System.Drawing.Color.ForestGreen
+        Me.GreenLightTxt.Font = New System.Drawing.Font("Segoe UI", 21.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GreenLightTxt.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.GreenLightTxt.Location = New System.Drawing.Point(22, 99)
+        Me.GreenLightTxt.Name = "GreenLightTxt"
+        Me.GreenLightTxt.Size = New System.Drawing.Size(232, 81)
+        Me.GreenLightTxt.TabIndex = 56
+        Me.GreenLightTxt.Text = "Ahead of Schedule"
+        Me.GreenLightTxt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'CoolButton5
+        '
+        Me.CoolButton5.BackgroundImage = Global.SubSupervisorScreen.My.Resources.Resources.GreenLightIcon
+        Me.CoolButton5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.CoolButton5.Enabled = False
+        Me.CoolButton5.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(246, Byte), Integer), CType(CType(247, Byte), Integer), CType(CType(248, Byte), Integer))
+        Me.CoolButton5.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(218, Byte), Integer), CType(CType(233, Byte), Integer), CType(CType(250, Byte), Integer))
+        Me.CoolButton5.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(205, Byte), Integer), CType(CType(228, Byte), Integer), CType(CType(252, Byte), Integer))
+        Me.CoolButton5.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.CoolButton5.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CoolButton5.ForeColor = System.Drawing.SystemColors.ControlLight
+        Me.CoolButton5.Location = New System.Drawing.Point(3, 1)
+        Me.CoolButton5.Name = "CoolButton5"
+        Me.CoolButton5.Size = New System.Drawing.Size(270, 276)
+        Me.CoolButton5.TabIndex = 1
+        Me.CoolButton5.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.CoolButton5.UseVisualStyleBackColor = True
+        '
+        'Label5
+        '
+        Me.Label5.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.Label5.Font = New System.Drawing.Font("Segoe UI", 21.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Label5.Location = New System.Drawing.Point(1616, 5)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(276, 60)
+        Me.Label5.TabIndex = 56
+        Me.Label5.Text = "Progress"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'SevenDaysAgoTitleLbl
+        '
+        Me.SevenDaysAgoTitleLbl.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.SevenDaysAgoTitleLbl.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.SevenDaysAgoTitleLbl.Font = New System.Drawing.Font("Segoe UI", 21.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SevenDaysAgoTitleLbl.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.SevenDaysAgoTitleLbl.Location = New System.Drawing.Point(773, 664)
+        Me.SevenDaysAgoTitleLbl.Name = "SevenDaysAgoTitleLbl"
+        Me.SevenDaysAgoTitleLbl.Size = New System.Drawing.Size(341, 60)
+        Me.SevenDaysAgoTitleLbl.TabIndex = 57
+        Me.SevenDaysAgoTitleLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Form1
         '
@@ -521,6 +673,12 @@ Partial Class Form1
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Black
         Me.ClientSize = New System.Drawing.Size(1904, 1041)
+        Me.Controls.Add(Me.SevenDaysAgoTitleLbl)
+        Me.Controls.Add(Me.Label5)
+        Me.Controls.Add(Me.GreenLightPanel)
+        Me.Controls.Add(Me.OrangeLightPanel)
+        Me.Controls.Add(Me.RedLightPanel)
+        Me.Controls.Add(Me.CompareToAvgLbl)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.AvgDownPanel)
         Me.Controls.Add(Me.AvgUpPanel)
@@ -530,7 +688,6 @@ Partial Class Form1
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.SevenDaysAgoAmazonLbl)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.SevenDaysAgoTitleLbl)
         Me.Controls.Add(Me.SevenDaysAgoEbayLbl)
         Me.Controls.Add(Me.Label25)
         Me.Controls.Add(Me.Label24)
@@ -559,6 +716,9 @@ Partial Class Form1
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.AvgUpPanel.ResumeLayout(False)
         Me.AvgDownPanel.ResumeLayout(False)
+        Me.RedLightPanel.ResumeLayout(False)
+        Me.OrangeLightPanel.ResumeLayout(False)
+        Me.GreenLightPanel.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -588,7 +748,6 @@ Partial Class Form1
     Friend WithEvents RefreshTimer As Timer
     Friend WithEvents Label17 As Label
     Friend WithEvents LoadOrders As System.ComponentModel.BackgroundWorker
-    Friend WithEvents SevenDaysAgoTitleLbl As Label
     Friend WithEvents SevenDaysAgoEbayLbl As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
@@ -601,4 +760,16 @@ Partial Class Form1
     Friend WithEvents CoolButton1 As WHLClasses.Controls.CoolButton
     Friend WithEvents CoolButton2 As WHLClasses.Controls.CoolButton
     Friend WithEvents Label3 As Label
+    Friend WithEvents CompareToAvgLbl As Label
+    Friend WithEvents RedLightPanel As Panel
+    Friend WithEvents CoolButton3 As WHLClasses.Controls.CoolButton
+    Friend WithEvents RedLightTxt As Label
+    Friend WithEvents OrangeLightPanel As Panel
+    Friend WithEvents OrangeLightTxt As Label
+    Friend WithEvents CoolButton4 As WHLClasses.Controls.CoolButton
+    Friend WithEvents GreenLightPanel As Panel
+    Friend WithEvents GreenLightTxt As Label
+    Friend WithEvents CoolButton5 As WHLClasses.Controls.CoolButton
+    Friend WithEvents Label5 As Label
+    Friend WithEvents SevenDaysAgoTitleLbl As Label
 End Class

@@ -48,6 +48,8 @@ Public Class Form1
                 If Not SevenDaysAgoTitleLbl.Text.Replace("Orders Last ", "") = Today.DayOfWeek.ToString Then
                     SevenDaysAgoTitleLbl.Text = "Orders Last " + Today.DayOfWeek.ToString 'Why do people leave this on overnight? Now we gotta refresh it every day.
                     newDay = True
+                    empcollection = New EmployeeCollection() 'Lets make sure we add new people to our employee list! :D
+                    GetAllEmployeeStats() 'Let's refresh this too, I mean, this has to be dynamic.
                 End If
 
             ElseIf fiveminticker >= 3 Then '3 seconds
@@ -154,14 +156,14 @@ Public Class Form1
         MissingItemCount.Text = CurrentOrddef.GetByStatus(OrderStatus._Oversold).Count.ToString
 
         totalsCount.Text = (CurrentOrddef.GetByStatus(OrderStatus._New).Count) + (CurrentOrddef.GetByStatus(OrderStatus._Picking).Count) + (CurrentOrddef.GetByStatus(OrderStatus._Picked).Count) + (CurrentOrddef.GetByStatus(OrderStatus._Packing).Count) + (CurrentOrddef.GetByStatus(OrderStatus._Packed).Count) + (CurrentOrddef.GetByStatus(OrderStatus._Prepack).Count) + (CurrentOrddef.GetByStatus(OrderStatus._Cantfind).Count) + (CurrentOrddef.GetByStatus(OrderStatus._Oversold).Count).ToString
-        If totalsCount.Text = "0" Or totalsCount.Text = "-" Then
+        If PackedCount.Text = "0" Or totalsCount.Text = "-" Then
             TodaysProgress.Value = TodaysProgress.Maximum
             TodaysProgress.ForeColor = Color.Blue
         ElseIf TodaysProgress.Maximum > totalsCount.Text Then
-            TodaysProgress.Value = totalsCount.Text
-            If (targetTotal / 5) > totalsCount.Text Then
+            TodaysProgress.Value = PackedCount.Text
+            If (targetTotal / 5) > PackedCount.Text Then
                 TodaysProgress.ForeColor = Color.Red
-            ElseIf ((targetTotal / 5) * 3) < totalsCount.Text Then
+            ElseIf ((targetTotal / 5) * 3) < PackedCount.Text Then
                 TodaysProgress.ForeColor = Color.Green
             Else
                 TodaysProgress.ForeColor = Color.Yellow
@@ -174,12 +176,20 @@ Public Class Form1
         If totalsCount.Text < totalforavgsales / 4 Then
             AvgDownPanel.Visible = True
             AvgUpPanel.Visible = False
-        Else
+            CompareToAvgLbl.Text = "Lower than average"
+        ElseIf totalsCount.Text > totalforavgsales / 4 Then
             AvgDownPanel.Visible = False
             AvgUpPanel.Visible = True
+            CompareToAvgLbl.Text = "Higher than average"
+        Else
+            AvgDownPanel.Visible = False
+            AvgUpPanel.Visible = False
+            CompareToAvgLbl.Text = "Average"
+
         End If
 
-        '--------------------------------------------------- NEW STUFF BELOW ---------------------------------------------------------
+        'Traffic lights
+        CheckCurrentAverageSpeed()
 
         'Loop through and set 0s to hyphens
         For Each control As Object In Me.Controls
@@ -192,42 +202,6 @@ Public Class Form1
 
             End Try
         Next
-
-
-        'Change surface picker version text
-        'Try
-        '    Dim folderlist As List(Of String) = My.Computer.FileSystem.GetDirectories("\\WIN-NOHLS1H9ER8\Data Storage\Intra\AppPublish\SurfacePicker\Application Files\").ToList
-        '    Dim latestFile As DateTime = "01/01/2016"
-        '    Dim finalfolder As String = ""
-        '    For Each folder In folderlist
-        '        Dim newinfo As IO.DirectoryInfo = My.Computer.FileSystem.GetDirectoryInfo(folder)
-        '        If newinfo.CreationTime > latestFile Then
-        '            latestFile = newinfo.CreationTime
-        '            finalfolder = folder
-
-        '        End If
-        '    Next
-        '    finalfolder = finalfolder.Replace("\\WIN-NOHLS1H9ER8\Data Storage\Intra\AppPublish\SurfacePicker\Application Files\SurfacePicker_", "").Replace("_", ".")
-
-        '    If Not finalfolder = SurfacePickerVersionTxt.Text Then
-        '        SurfacePickerVersionTxt.Text = finalfolder
-        '        If Not LookForVersionUpdate Then
-
-        '            LookForVersionUpdate = True
-        '        Else
-        '            UpdateCount += 1
-        '            UpdatedTxt.Visible = True
-        '            If UpdateCount = 1 Then
-        '                UpdatedTxt.Text = "Updated at " + Now.ToString("dd/MM/yy HH:mm") + "!"
-        '            Else
-        '                UpdatedTxt.Text = "Update " + UpdateCount.ToString + " at " + Now.ToString("dd/MM/yy HH:mm") + "!"
-        '            End If
-        '        End If
-        '    End If
-        'Catch ex As Exception
-
-        'End Try
-
     End Sub
     Private LookForVersionUpdate As Boolean = False
     Private UpdateCount As Integer = 0
@@ -343,6 +317,227 @@ Public Class Form1
             RecalcTotals()
         End If
     End Sub
+
+    'THANK GOD THIS ONLY RUNS ONCE A DAY
+    Dim empcollection As EmployeeCollection
+    Private Sub GetAllEmployeeStats()
+        Dim statslist1Wk As New List(Of EmpStats)
+        Dim emps1Wk As Integer = 0
+        Dim statslist2Wk As New List(Of EmpStats)
+        Dim emps2Wk As Integer = 0
+        Dim statslist3Wk As New List(Of EmpStats)
+        Dim emps3Wk As Integer = 0
+        Dim statslist4Wk As New List(Of EmpStats)
+        Dim emps4Wk As Integer = 0
+        For Each emp As Employee In empcollection.Employees
+            Dim templist1Wk As EmpStats = LoadAnalyticsFile(emp.PayrollId, Today.AddDays(-7), Today.AddDays(-6))
+            If Not templist1Wk Is Nothing Then
+                statslist1Wk.Add(templist1Wk)
+                emps1Wk += 1
+            End If
+            Dim templist2Wk As EmpStats = LoadAnalyticsFile(emp.PayrollId, Today.AddDays(-14), Today.AddDays(-13))
+            If Not templist2Wk Is Nothing Then
+                statslist2Wk.Add(templist2Wk)
+                emps2Wk += 1
+            End If
+            Dim templist3Wk As EmpStats = LoadAnalyticsFile(emp.PayrollId, Today.AddDays(-21), Today.AddDays(-20))
+            If Not templist3Wk Is Nothing Then
+                statslist3Wk.Add(templist3Wk)
+                emps3Wk += 1
+            End If
+            Dim templist4Wk As EmpStats = LoadAnalyticsFile(emp.PayrollId, Today.AddDays(-28), Today.AddDays(-27))
+            If Not templist4Wk Is Nothing Then
+                statslist4Wk.Add(templist4Wk)
+                emps4Wk += 1
+            End If
+        Next
+
+        'So now we have 4 days of packing data, one from the past 4 weeks.
+        'For each week, we need to get the total time spent and orders complete.
+        'We need to divide each of those by the amount of employees that were involved in packing that day.
+        'This is how we get each day's proper order / time spent ratio.
+        'Then, when we have that info, add the four days together and divide by 4 to get a proper average.
+
+        Dim Wk1Time As New TimeSpan
+        Dim Wk2Time As New TimeSpan
+        Dim Wk3Time As New TimeSpan
+        Dim Wk4Time As New TimeSpan
+        Dim Wk1Orders As Integer = 0
+        Dim Wk2Orders As Integer = 0
+        Dim Wk3Orders As Integer = 0
+        Dim Wk4Orders As Integer = 0
+
+        'WEEK; THE FIRST
+        If Not statslist1Wk.Count = 0 Then
+            For Each statlist In statslist1Wk 'Each employee
+                For Each sessionlist As List(Of WarehouseAnalytics.SessionAnalytic) In statlist.allSessions.Values 'Each employee's list of sessions
+                    For Each session In sessionlist 'Each session individually- oh my gosh, 3 for loops. I gotta do this 3 more times too.
+                        Wk1Time = TimeSpan.FromSeconds(Wk1Time.TotalSeconds + session.TimeSpan.TotalSeconds)
+                        Wk1Orders += session.OrderCount
+                    Next
+                Next
+            Next
+
+            Wk1Time = TimeSpan.FromSeconds(Wk1Time.TotalSeconds / emps1Wk)
+            Wk1Orders = Wk1Orders / emps1Wk
+        End If
+
+        'WEEK; THE SECN0D
+        If Not statslist2Wk.Count = 0 Then
+            For Each statlist In statslist2Wk 'Each employee
+                For Each sessionlist As List(Of WarehouseAnalytics.SessionAnalytic) In statlist.allSessions.Values 'Each employee's list of sessions
+                    For Each session In sessionlist 'Each session individually
+                        Wk2Time = TimeSpan.FromSeconds(Wk2Time.TotalSeconds + session.TimeSpan.TotalSeconds)
+                        Wk2Orders += session.OrderCount
+                    Next
+                Next
+            Next
+
+            Wk2Time = TimeSpan.FromSeconds(Wk2Time.TotalSeconds / emps2Wk)
+            Wk2Orders = Wk2Orders / emps2Wk
+        End If
+
+        'WEEK; THE ThRD1
+        If Not statslist3Wk.Count = 0 Then
+            For Each statlist In statslist3Wk 'Each employee
+                For Each sessionlist As List(Of WarehouseAnalytics.SessionAnalytic) In statlist.allSessions.Values 'Each employee's list of sessions
+                    For Each session In sessionlist 'Each session individually
+                        Wk3Time = TimeSpan.FromSeconds(Wk3Time.TotalSeconds + session.TimeSpan.TotalSeconds)
+                        Wk3Orders += session.OrderCount
+                    Next
+                Next
+            Next
+
+            Wk3Time = TimeSpan.FromSeconds(Wk3Time.TotalSeconds / emps3Wk)
+            Wk3Orders = Wk3Orders / emps3Wk
+        End If
+
+        'WEEK; THE FOUUUWWWWWWWWW-
+        If Not statslist4Wk.Count = 0 Then
+            For Each statlist In statslist4Wk 'Each employee
+                For Each sessionlist As List(Of WarehouseAnalytics.SessionAnalytic) In statlist.allSessions.Values 'Each employee's list of sessions
+                    For Each session In sessionlist 'Each session individually
+                        Wk4Time = TimeSpan.FromSeconds(Wk4Time.TotalSeconds + session.TimeSpan.TotalSeconds)
+                        Wk4Orders += session.OrderCount
+                    Next
+                Next
+            Next
+
+            Wk4Time = TimeSpan.FromSeconds(Wk4Time.TotalSeconds / emps4Wk)
+            Wk4Orders = Wk4Orders / emps4Wk
+        End If
+
+        Dim masterTimespan As TimeSpan = TimeSpan.FromSeconds((Wk1Time.TotalSeconds + Wk2Time.TotalSeconds + Wk3Time.TotalSeconds + Wk4Time.TotalSeconds) / 4)
+        Dim masterOrders As Integer = (Wk1Orders + Wk2Orders + Wk3Orders + Wk4Orders) / 4
+
+        'AND THE RESULT IS...
+        masterAverage = masterOrders / masterTimespan.TotalSeconds
+
+    End Sub
+    Dim masterAverage As Double = 0 'Absolutely necessary
+
+    Private Sub CheckCurrentAverageSpeed()
+        'We need to check that it's worth checking.
+        If totalsCount.Text = 0 Or totalsCount.Text = "-" Then
+            GreenLightPanel.Visible = True 'Sure. We have nothing to do. Nobody needs to pack anything
+            OrangeLightPanel.Visible = False
+            RedLightPanel.Visible = False
+        ElseIf PostedCount.Text = "100.0%" Then
+            GreenLightPanel.Visible = True 'Nobody needs to pack anything if we're done.
+            OrangeLightPanel.Visible = False
+            RedLightPanel.Visible = False
+        ElseIf PackedCount.Text = "0" Or PackedCount.Text = "-" Then
+            GreenLightPanel.Visible = False
+            OrangeLightPanel.Visible = False
+            RedLightPanel.Visible = True
+        Else
+
+            Dim eightamToday As DateTime = Today.Date
+            eightamToday = eightamToday.AddHours(8)
+            Dim todaysTimespan As TimeSpan = Now - eightamToday
+            Dim currentAverage As Double = PackedCount.Text / todaysTimespan.TotalSeconds
+
+            'Now here's where lights go on
+            If currentAverage > (masterAverage * 1.3) Then 'bigger than the average + 1 third
+                GreenLightPanel.Visible = True
+                OrangeLightPanel.Visible = False
+                RedLightPanel.Visible = False
+            ElseIf currentAverage < ((masterAverage / 3) * 2) Then 'smaller than the average - 1 third
+                GreenLightPanel.Visible = False
+                OrangeLightPanel.Visible = False
+                RedLightPanel.Visible = True
+            Else 'Between 1 third above and 1 third below average
+                GreenLightPanel.Visible = False
+                OrangeLightPanel.Visible = True
+                RedLightPanel.Visible = False
+            End If
+        End If
+
+        'If GreenLightPanel.Visible = True Then
+        'GreenLightPanel.BackgroundImage = Image.FromFile("..\Resources\GreenLightIcon.png")
+        'Else
+
+        'End If
+    End Sub
+
+
+    Private Function LoadAnalyticsFile(empID As Integer, FirstDate As DateTime, SecondDate As DateTime) As EmpStats
+        'Dim theAnalytic As WarehouseAnalytics.DailyAnalytic = Loader.LoadAnything
+
+        Try
+            If IsNumeric(empID) Then
+                If My.Computer.FileSystem.FileExists("T:\AppData\Analytics\" + empID.ToString + ".anal") Then
+                    Dim analyticsfile As WHLClasses.WarehouseAnalytics.AnalyticBase = Loader.LoadAnything("T:\AppData\Analytics\" + empID.ToString + ".anal", False).Value
+                    Dim date1str As String = FirstDate.ToString("yyyy/MM/dd")
+                    Dim date2str As String = SecondDate.ToString("yyyy/MM/dd")
+                    Dim Date1 As Date = date1str
+                    Dim Date2 As Date = date2str
+                    Dim workCounted As Boolean = False
+                    Dim allSessions As New Dictionary(Of Date, List(Of WarehouseAnalytics.SessionAnalytic))
+                    Dim dayCount As Integer = 0
+                    While Date1 < Date2
+                        Dim sessionDone As Integer
+                        'Dim timeToPass As TimeSpan = TimeSpan.FromMinutes(1)
+                        Try
+                            Dim sessionList As New List(Of WarehouseAnalytics.SessionAnalytic)
+                            For Each session As WarehouseAnalytics.SessionAnalytic In analyticsfile.Data(Date1).Sessions
+                                sessionDone = session.OrderCount
+                                If sessionDone > 2 And session.SessionType = WarehouseAnalytics.SessionType.Packing Then
+                                    sessionList.Add(session)
+                                    workCounted = True
+                                End If
+                            Next
+                            allSessions.Add(Date1, sessionList)
+                            dayCount += 1
+                        Catch ex As System.Collections.Generic.KeyNotFoundException
+                            'This is fine, don't let this get caught by the OTHER try, it'll override the result.
+                        End Try
+                        Date1 = Date1.AddDays(1)
+                    End While
+
+                    If workCounted Then
+                        Dim employeeStats As New EmpStats(empID, allSessions)
+                        Return employeeStats
+                    End If
+                End If
+            End If
+        Catch ex As Exception
+        End Try
+        Return Nothing
+    End Function
+
+    Public Class EmpStats
+        Public EmpID As String
+        Public allSessions As New Dictionary(Of Date, List(Of WarehouseAnalytics.SessionAnalytic))
+
+        Public Sub New(ID As String, sessions As Dictionary(Of Date, List(Of WarehouseAnalytics.SessionAnalytic)))
+            EmpID = ID
+            allSessions = sessions
+        End Sub
+        Public Sub New() 'And I guess a way to make new empty ones.
+
+        End Sub
+    End Class
 
     'Private Sub UpdatedTxt_Click(sender As Object, e As EventArgs) Handles UpdatedTxt.Click
     '    UpdateCount = 0

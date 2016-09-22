@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="SubSupervisorScreen.exe" version="1.1.0.10" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="SubSupervisorScreen.exe" version="1.1.0.14" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
   <application />
   <entryPoint>
     <assemblyIdentity name="SubSupervisorScreen" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
@@ -78,14 +78,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SubSupervisorScreen.exe" size="40336">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SubSupervisorScreen.exe" size="79760">
       <assemblyIdentity name="SubSupervisorScreen" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>4UIsl51/ackdOrVqL3WLNgWdUmVw8iBqMn+4akDMKd0=</dsig:DigestValue>
+        <dsig:DigestValue>bKYGVJ0PzqGjo6TQRnVQhFs2V1N7kzBBvJUBfb5mvuw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -113,6 +113,78 @@
       </hash>
     </dependentAssembly>
   </dependency>
+  <file name="Resources\GreenLightIcon.png" size="1842">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>gwJwh0jbm3vf5d7gUQq7xoSGNb0hL6XETOG1M6c7HWY=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Resources\GreenLightIconDark.png" size="1975">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>z6nZUqBpps1OvKfXFKAFPpexaNjEWEHemZGwJZ4dZ14=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Resources\GrnArrowIconDark.png" size="3872">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>pgZAAl/LmK9xiZ8psy3I/mpeceSrqUHG9xwfEi/akCQ=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Resources\OrangeLightIcon.png" size="1841">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>1r3K5G8iwunkdnbL2SYfRLNvHHiKV38ifaccdDyLZ2g=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Resources\OrangeLightIconDark.png" size="1975">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>LL5SBo/p8TtKa5NfyUbEmNy98MUPu+69kycvkloWSao=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Resources\RedArrowIconDark.png" size="3780">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>o4+IG9tEzQuzY2/t2aovNNQZefySVEFkicEB8DJsAtk=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Resources\RedLightIcon.png" size="1842">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>AIcEcfdSABHHVrGFzOHc2RZ6ojNwgl863v6q+b6+w8s=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Resources\RedLightIconDark.png" size="1971">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>IfI7ZqE9k1upn0rE9gDZt5rf56TrPfpgjkNN+Q3J91g=</dsig:DigestValue>
+    </hash>
+  </file>
   <file name="SubSupervisorScreen.exe.config" size="188">
     <hash>
       <dsig:Transforms>
