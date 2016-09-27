@@ -78,14 +78,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SubSupervisorScreen.exe" size="79760">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SubSupervisorScreen.exe" size="82832">
       <assemblyIdentity name="SubSupervisorScreen" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>bKYGVJ0PzqGjo6TQRnVQhFs2V1N7kzBBvJUBfb5mvuw=</dsig:DigestValue>
+        <dsig:DigestValue>JX77ehByKxJz73cCO3D3hfHed83xV1LDhNTLc6CmXp8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -97,7 +97,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>7fx3OBKLZEXoMlBGhPcvwk4tFFraM4yCIPZOfn3ImWU=</dsig:DigestValue>
+        <dsig:DigestValue>3LjIhU7jYq8P40eqHoJTn7/edEoO2FjJHN1E3y0eAdI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

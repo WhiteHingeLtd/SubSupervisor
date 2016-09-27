@@ -4,34 +4,37 @@ Imports WHLClasses.Linnworks.Orders
 Imports WHLClasses.NetCom
 Imports WHLClasses.Orders
 
-Public Class Form1
+Public Class wpfMainWindow
     Dim Loader As New GenericDataController
     Dim CurrentOrddef As OrderDefinition
     Dim fiveminticker As Integer = 0
+
+    Dim LoadOrders As New BackgroundWorker
+    Dim RefreshTimer As New Timer
     'Dim bw As BackgroundWorker = New BackgroundWorker  'Dead worker. Currently occupying a large section of comment hell.
 
-    Private Sub LoadTheProgram() Handles Me.Load
+    Private Sub LoadTheProgram() Handles Me.Loaded
         'Worker stuff
         'bw.WorkerSupportsCancellation = True
         'bw.WorkerReportsProgress = True
         'AddHandler bw.DoWork, AddressOf bw_DoWork      'Dead worker's work address. We don't deliver here anymore.
 
 
+        LoadOrders.WorkerReportsProgress = True
+        AddHandler LoadOrders.DoWork, AddressOf LoadOrders_DoWork
+        AddHandler LoadOrders.ProgressChanged, AddressOf LoadOrders_ProgressChanged
 
         fiveminticker = 16
         RefreshTimer.Enabled = False
-
-        TodaysProgress.Minimum = 0
-        TodaysProgress.Value = 0
-        TodaysProgress.Maximum = 100
+        AddHandler RefreshTimer.Tick, AddressOf TickTime
     End Sub
 
     Dim newDay As Boolean = False
-    Dim targetTotal As Integer = 0
     Dim totalforavgsales As Integer = 0
+    Dim today As Date = Now.Date
 
     'THIS STUFF WORKS. That's the only reason it's used. A worker would be nice but it decided it was going on a permanent holiday to comment hell. RIP.
-    Private Sub TickTime() Handles RefreshTimer.Tick
+    Private Sub TickTime()
         If Not workbusy Then
 
             fiveminticker += 1 'Increment timer.
@@ -47,8 +50,7 @@ Public Class Form1
                 End Try
                 ReloadingOrddefLabel.Text = "Refreshing order data"
                 LoadOrders.RunWorkerAsync()
-                If Not SevenDaysAgoTitleLbl.Text.Replace("Orders Last ", "") = Today.DayOfWeek.ToString Then
-                    SevenDaysAgoTitleLbl.Text = "Orders Last " + Today.DayOfWeek.ToString 'Why do people leave this on overnight? Now we gotta refresh it every day.
+                If Not today < Now.Date Then
                     newDay = True
                     empcollection = New EmployeeCollection() 'Lets make sure we add new people to our employee list! :D
                     GetAllEmployeeStats() 'Let's refresh this too, I mean, this has to be dynamic.
@@ -61,39 +63,13 @@ Public Class Form1
 
         If newDay Then
             Try
-                Dim saletotalcollection As ArrayList = MySql.SelectData("SELECT subsourceText, totalDate, totalValue, TLSource FROM whldata.newsales_dailysourcetotals;")
-                Dim totalESalesLastWeek As Integer = 0
-                Dim totalASalesLastWeek As Integer = 0
-                Dim totalWSalesLastWeek As Integer = 0
+                Dim saletotalcollection As ArrayList = MySql.SelectData("SELECT SUM(totalValue), TotalDate FROM whldata.newsales_dailysourcetotals WHERE totalDate='" + Now.AddDays(-7).ToString("yyyy-MM-dd") + "' OR totalDate='" + Now.AddDays(-14).ToString("yyyy-MM-dd") + "' OR totalDate='" + Now.AddDays(-21).ToString("yyyy-MM-dd") + "' OR totalDate='" + Now.AddDays(-28).ToString("yyyy-MM-dd") + "'  GROUP BY totalDate;")
                 totalforavgsales = 0
                 For Each selection In saletotalcollection
-                    If selection(1) = Today.AddDays(-7).ToString("yyyy-MM-dd") Then 'Get the day
-                        If selection(3) = "EBAY" Then
-                            totalESalesLastWeek += selection(2)
-                        ElseIf selection(3) = "AMAZON" Then
-                            totalASalesLastWeek += selection(2)
-                        ElseIf selection(3) = "MAGENTO" Then
-                            totalWSalesLastWeek += selection(2)
-                        ElseIf selection(0) = "" And selection(3) = "DIRECT" Then
-                            totalWSalesLastWeek += selection(2)
-                        End If
-                        totalforavgsales += selection(2)
-                    ElseIf selection(1) = Today.AddDays(-14).ToString("yyyy-MM-dd") Then 'Get the day
-                        totalforavgsales += selection(2)
-                    ElseIf selection(1) = Today.AddDays(-21).ToString("yyyy-MM-dd") Then 'Get the day
-                        totalforavgsales += selection(2)
-                    ElseIf selection(1) = Today.AddDays(-28).ToString("yyyy-MM-dd") Then 'Get the day
-                        totalforavgsales += selection(2)
-                    End If
+                    totalforavgsales += selection(0)
                 Next
-                SevenDaysAgoEbayLbl.Text = totalESalesLastWeek.ToString
-                SevenDaysAgoAmazonLbl.Text = totalASalesLastWeek.ToString
-                SevenDaysAgoWebsiteLbl.Text = totalWSalesLastWeek.ToString
+                totalforavgsales = totalforavgsales / saletotalcollection.Count
                 newDay = False
-                targetTotal = totalESalesLastWeek + totalASalesLastWeek + totalWSalesLastWeek
-                TodaysProgress.Minimum = 0
-                TodaysProgress.Value = 0
-                TodaysProgress.Maximum = targetTotal
             Catch ex As Exception
             End Try
         End If
@@ -134,6 +110,43 @@ Public Class Form1
         'RefreshTimer.Enabled = True 'Turn refresh timer back on. The time amount was reset earlier.
     End Sub
 
+    Private Sub StartFlashingIssues()
+        Try
+            Dim myStoryboard As System.Windows.Media.Animation.Storyboard = FindResource("IssuesLight")
+            myStoryboard.Stop()
+            myStoryboard.Begin()
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+    Private Sub StartFlashingPrepack()
+        Try
+            Dim myStoryboard As System.Windows.Media.Animation.Storyboard = FindResource("PrepackLight")
+            myStoryboard.Stop()
+            myStoryboard.Begin()
+        Catch ex As Exception
+
+        End Try
+    End Sub
+    Private Sub StopFlashingIssues()
+        Try
+            Dim myStoryboard As System.Windows.Media.Animation.Storyboard = FindResource("IssuesLight")
+            myStoryboard.Stop()
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+    Private Sub StopFlashingPrepack()
+        Try
+            Dim myStoryboard As System.Windows.Media.Animation.Storyboard = FindResource("PrepackLight")
+            myStoryboard.Stop()
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
     Dim workbusy As Boolean = False
 
     'STUFF TO WORK FROM
@@ -154,59 +167,46 @@ Public Class Form1
         End If
 
         PrepackCount.Text = CurrentOrddef.GetByStatus(OrderStatus._Prepack).Count.ToString
-        NotFoundCount.Text = CurrentOrddef.GetByStatus(OrderStatus._Cantfind).Count.ToString
-        MissingItemCount.Text = CurrentOrddef.GetByStatus(OrderStatus._Oversold).Count.ToString
+        IssueCount.Text = CurrentOrddef.GetByStatus(OrderStatus._Cantfind).Count.ToString
+        OversoldCount.Text = CurrentOrddef.GetByStatus(OrderStatus._Oversold).Count.ToString
 
         totalsCount.Text = (CurrentOrddef.GetByStatus(OrderStatus._New).Count) + (CurrentOrddef.GetByStatus(OrderStatus._Picking).Count) + (CurrentOrddef.GetByStatus(OrderStatus._Picked).Count) + (CurrentOrddef.GetByStatus(OrderStatus._Packing).Count) + (CurrentOrddef.GetByStatus(OrderStatus._Packed).Count) + (CurrentOrddef.GetByStatus(OrderStatus._Prepack).Count) + (CurrentOrddef.GetByStatus(OrderStatus._Cantfind).Count) + (CurrentOrddef.GetByStatus(OrderStatus._Oversold).Count).ToString
 
-
-
-        If PackedCount.Text = "0" Or totalsCount.Text = "-" Then
-            TodaysProgress.Value = TodaysProgress.Maximum
-            TodaysProgress.ForeColor = Color.Blue
-        ElseIf TodaysProgress.Maximum > totalsCount.Text Then
-            TodaysProgress.Value = PackedCount.Text
-            If (targetTotal / 5) > PackedCount.Text Then
-                TodaysProgress.ForeColor = Color.Red
-            ElseIf ((targetTotal / 5) * 3) < PackedCount.Text Then
-                TodaysProgress.ForeColor = Color.Green
-            Else
-                TodaysProgress.ForeColor = Color.Yellow
-            End If
+        If Convert.ToInt32(PrepackCount.Text) > 10 Then
+            StartFlashingPrepack()
         Else
-            TodaysProgress.Value = TodaysProgress.Maximum
-            TodaysProgress.ForeColor = Color.Green
+            StopFlashingPrepack()
         End If
 
-        If totalsCount.Text < totalforavgsales / 4 Then
-            AvgDownPanel.Visible = True
-            AvgUpPanel.Visible = False
-            CompareToAvgLbl.Text = "Lower than average"
-        ElseIf totalsCount.Text > totalforavgsales / 4 Then
-            AvgDownPanel.Visible = False
-            AvgUpPanel.Visible = True
-            CompareToAvgLbl.Text = "Higher than average"
+        If Convert.ToInt32(IssueCount.Text) > 0 Then
+            StartFlashingIssues()
         Else
-            AvgDownPanel.Visible = False
-            AvgUpPanel.Visible = False
-            CompareToAvgLbl.Text = "Average"
-
+            StopFlashingIssues()
         End If
+
 
         'Traffic lights
         CheckCurrentAverageSpeed()
 
-        'Loop through and set 0s to hyphens
-        For Each control As Object In Me.Controls
-            Try
-                Dim tb As Label = control
-                If tb.Text = "0" Then
-                    tb.Text = "-"
-                End If
-            Catch ex As Exception
+        If PickingExpected.Text = "0" Then PickingExpected.Text = "-"
+        If PickingActual.Text = "0" Then PickingActual.Text = "-"
+        If PickingTarget.Text = "0" Then PickingTarget.Text = "-"
 
-            End Try
-        Next
+        If PackingExpected.Text = "0" Then PackingExpected.Text = "-"
+        If PackingActual.Text = "0" Then PackingActual.Text = "-"
+        If PackingTarget.Text = "0" Then PackingTarget.Text = "-"
+
+        If NewCount.Text = "0" Then NewCount.Text = "-"
+        If PickingCount.Text = "0" Then PickingCount.Text = "-"
+        If PickedCount.Text = "0" Then PickedCount.Text = "-"
+        If PackingCount.Text = "0" Then PackingCount.Text = "-"
+        If PackedCount.Text = "0" Then PackedCount.Text = "-"
+        If PostedCount.Text = "0" Then PostedCount.Text = "-"
+        If PrepackCount.Text = "0" Then PackingCount.Text = "-"
+        If IssueCount.Text = "0" Then IssueCount.Text = "-"
+        If OversoldCount.Text = "0" Then OversoldCount.Text = "-"
+        If totalsCount.Text = "0" Then totalsCount.Text = "-"
+
     End Sub
     Private LookForVersionUpdate As Boolean = False
     Private UpdateCount As Integer = 0
@@ -307,7 +307,7 @@ Public Class Form1
         End If
     End Function
 
-    Private Sub LoadOrders_DoWork(sender As Object, e As DoWorkEventArgs) Handles LoadOrders.DoWork
+    Private Sub LoadOrders_DoWork(sender As Object, e As DoWorkEventArgs)
         If Not workbusy Then
             workbusy = True
             RefreshOrddef()
@@ -316,7 +316,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub LoadOrders_ProgressChanged(sender As Object, e As ProgressChangedEventArgs) Handles LoadOrders.ProgressChanged
+    Private Sub LoadOrders_ProgressChanged(sender As Object, e As ProgressChangedEventArgs)
         If e.ProgressPercentage = 1 Then
 
             RecalcTotals()
@@ -442,49 +442,42 @@ Public Class Form1
     Dim masterAverage As Double = 0 'Absolutely necessary
 
     Private Sub CheckCurrentAverageSpeed()
-        'We need to check that it's worth checking.
-        If totalsCount.Text = 0 Or totalsCount.Text = "-" Then
-            GreenLightPanel.Visible = True 'Sure. We have nothing to do. Nobody needs to pack anything
-            OrangeLightPanel.Visible = False
-            RedLightPanel.Visible = False
-        ElseIf PostedCount.Text = "100.0%" Then
-            GreenLightPanel.Visible = True 'Nobody needs to pack anything if we're done.
-            OrangeLightPanel.Visible = False
-            RedLightPanel.Visible = False
-        ElseIf PackedCount.Text = "0" Or PackedCount.Text = "-" Then
-            GreenLightPanel.Visible = False
-            OrangeLightPanel.Visible = False
-            RedLightPanel.Visible = True
+        Dim eightamToday As DateTime = today.Date
+        eightamToday = eightamToday.AddHours(8)
+        Dim todaysTimespan As TimeSpan = Now - eightamToday
+
+        If PickedCount.Text = "-" Then
+
         Else
+            'Dim currentAveragePicked As Double = PickedCount.Text / todaysTimespan.TotalSeconds
+            PickingActual.Text = (Convert.ToInt32(PickedCount) + Convert.ToInt32(PackingCount) + Convert.ToInt32(PackedCount)).ToString
 
-            Dim eightamToday As DateTime = Today.Date
-            eightamToday = eightamToday.AddHours(8)
-            Dim todaysTimespan As TimeSpan = Now - eightamToday
-            Dim currentAverage As Double = PackedCount.Text / todaysTimespan.TotalSeconds
+            PickingExpected.Text = totalforavgsales.ToString
 
-            'Now here's where lights go on
-            If currentAverage > (masterAverage * 1.3) Then 'bigger than the average + 1 third
-                GreenLightPanel.Visible = True
-                OrangeLightPanel.Visible = False
-                RedLightPanel.Visible = False
-            ElseIf currentAverage < ((masterAverage / 3) * 2) Then 'smaller than the average - 1 third
-                GreenLightPanel.Visible = False
-                OrangeLightPanel.Visible = False
-                RedLightPanel.Visible = True
-            Else 'Between 1 third above and 1 third below average
-                GreenLightPanel.Visible = False
-                OrangeLightPanel.Visible = True
-                RedLightPanel.Visible = False
-            End If
+            Dim eightHoursConvertedToSeconds As Integer = 28800 '(8 * 60) * 60
+            Dim vsAveragePicked As Double = (totalforavgsales / eightHoursConvertedToSeconds) * todaysTimespan.TotalSeconds
+            PickingTarget.Text = vsAveragePicked.ToString
+
         End If
 
-        'If GreenLightPanel.Visible = True Then
-        'GreenLightPanel.BackgroundImage = Image.FromFile("..\Resources\GreenLightIcon.png")
-        'Else
+        If PackedCount.Text = "-" Then
 
-        'End If
+        Else
+            'Dim currentAveragePacked As Double = PackedCount.Text / todaysTimespan.TotalSeconds
+            PackingActual.Text = PackedCount.ToString
+
+            PackingExpected.Text = totalforavgsales.ToString
+
+            Dim eightHoursConvertedToSeconds As Integer = 28800 '(8 * 60) * 60
+            Dim vsAveragePacked As Double = (totalforavgsales / eightHoursConvertedToSeconds) * todaysTimespan.TotalSeconds
+            PackingTarget.Text = vsAveragePacked.ToString
+
+        End If
+
+
+
+
     End Sub
-
 
     Private Function LoadAnalyticsFile(empID As Integer, FirstDate As DateTime, SecondDate As DateTime) As EmpStats
         'Dim theAnalytic As WarehouseAnalytics.DailyAnalytic = Loader.LoadAnything
@@ -543,88 +536,4 @@ Public Class Form1
 
         End Sub
     End Class
-
-    Private Sub CoolButton1_Click(sender As Object, e As EventArgs) Handles CoolButton1.Click
-        Dim newwin As New wpfMainWindow
-        newwin.Show()
-    End Sub
-
-    Private Sub CoolButton2_Click(sender As Object, e As EventArgs) Handles Label17.Click
-        Dim newwin As New wpfMainWindow
-        newwin.Show()
-    End Sub
-
-    'Private Sub UpdatedTxt_Click(sender As Object, e As EventArgs) Handles UpdatedTxt.Click
-    '    UpdateCount = 0
-    '    UpdatedTxt.Visible = False
-    'End Sub
-
-
-
-
-    'Comment hell - A special place reserved for non-compliant workers and their affiliated work. They will spend eternity doing sweet fuck all. Just like they wanted.
-
-
-    'Dim WorkerWorkPlease As Boolean
-    'Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs)
-    '    Dim worker As BackgroundWorker = CType(sender, BackgroundWorker)
-
-    '    If WorkerWorkPlease Then
-    '        bw.ReportProgress(0)
-    '        RefreshOrddef() 'Refresh
-    '    End If
-    'End Sub
-
-    'Private Sub TickTime() Handles RefreshTimer.Tick
-    '    fiveminticker += 1 'Increment timer.
-
-    '    If fiveminticker >= 300 Then '5 mins
-    '        fiveminticker = 0 'Reset timer
-    '        RefreshTimer.Enabled = False 'Turn timer off during refresh attempts...
-    '        ReloadingOrddefLabel.Text = "Reloading Orders" 'Show that we're actively refreshing.
-    '        WorkerWorkPlease = True
-
-    '        If Not bw.IsBusy = True Then
-    '            bw.RunWorkerAsync()
-    '            bw_DoWork(Nothing, Nothing)
-    '        End If
-    '    ElseIf fiveminticker >= 10 Then '10 seconds
-    '        ReloadingOrddefLabel.Text = (300 - fiveminticker).ToString 'Time to next refresh.
-    '    End If
-    'End Sub
-
-    'Dim elipsesString As String = ""    'During worker ... work :l Yep. Worker work. Thanks brain, you're a genie ass.
-    'Private Sub RefreshOrddef()
-
-    '    Application.DoEvents()
-    '    Try
-    '        '... Actually, I'm not sure how an Application.DoEvents would affect a while loop. Would it try to loop insanely?
-    '        Threading.Thread.Sleep(2000) 'Sleep before checking.
-    '        CurrentOrddef = Loader.LoadOrddef("T:\AppData\Orders\.orddef") 'Load the file! Please. Why won't you load?
-    '        elipsesString = ""
-    '    Catch ex As Exception
-    '        elipsesString += "." 'Add a dot to our actively changing elipses - show the program hasn't frozen
-    '        If elipsesString.Length > 3 Then
-    '            elipsesString = "." 'If we have 4 dots or more, set to 1.
-    '        End If
-    '    End Try
-
-    '    If elipsesString.Length > 0 Then
-    '        bw.ReportProgress(elipsesString.Length) 'Number is actually pretty pointless. It's ONE function.
-    '    Else
-    '        bw.ReportProgress(100) 'If elipsesString is empty, we finished.
-    '        RefreshTimer.Enabled = True 'Turn refresh timer back on. The time amount was reset earlier.
-    '        WorkerWorkPlease = False
-    '    End If
-    'End Sub
-
-    'Private Sub bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs)
-    '    If e.ProgressPercentage = 100 Then
-    '        ReloadingOrddefLabel.Text = "Reload Complete" 'Display that we've exited the loop.
-    '        RecalcTotals() 'Recalculate our totals.
-    '    Else
-    '        ReloadingOrddefLabel.Text = "Reloading Orders" + elipsesString 'Add dots to string.
-    '    End If
-    'End Sub
-
 End Class
