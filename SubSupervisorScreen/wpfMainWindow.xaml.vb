@@ -1,4 +1,5 @@
 ﻿Imports System.ComponentModel
+Imports System.Windows.Media
 Imports WHLClasses
 Imports WHLClasses.Linnworks.Orders
 Imports WHLClasses.NetCom
@@ -8,7 +9,7 @@ Public Class wpfMainWindow
     Dim Loader As New GenericDataController
     Dim CurrentOrddef As OrderDefinition
     Dim fiveminticker As Integer = 0
-
+    Public WindowToClose As New Form1
     Dim LoadOrders As New BackgroundWorker
     Dim RefreshTimer As New Timer
     'Dim bw As BackgroundWorker = New BackgroundWorker  'Dead worker. Currently occupying a large section of comment hell.
@@ -25,8 +26,13 @@ Public Class wpfMainWindow
         AddHandler LoadOrders.ProgressChanged, AddressOf LoadOrders_ProgressChanged
 
         fiveminticker = 16
-        RefreshTimer.Enabled = False
+        RefreshTimer.Enabled = True
+        RefreshTimer.Interval = 1000
         AddHandler RefreshTimer.Tick, AddressOf TickTime
+    End Sub
+
+    Private Sub ToDoWhenClosing() Handles Me.Closed
+        WindowToClose.CloseWinProper()
     End Sub
 
     Dim newDay As Boolean = False
@@ -38,6 +44,37 @@ Public Class wpfMainWindow
         If Not workbusy Then
 
             fiveminticker += 1 'Increment timer.
+
+            If fiveminticker Mod 5 = 0 Then
+                Dim newCalculator As DayAverageCalculator = Loader.LoadAnything("T:\AppData\Analytics\Average.SPAS", False).Value
+
+                PickingExpected.Text = Math.Round(newCalculator.WorkOutAveragePicking).ToString
+                PackingExpected.Text = Math.Round(newCalculator.WorkOutAveragePacking).ToString
+
+                TickerText.Text = "          " + newCalculator.MessageText.PadRight(45, " ") + "          "
+
+                CheckCurrentAverageSpeed()
+
+                Dim pickTarget As Integer = Convert.ToInt32(PickingActual.Text) - Convert.ToInt32(PickingExpected.Text)
+                If pickTarget > 100 Then
+                    PickLamp.Background = (New SolidColorBrush(Color.FromRgb(0, 255, 0)))
+                ElseIf pickTarget < 100 Then
+                    PickLamp.Background = (New SolidColorBrush(Color.FromRgb(255, 0, 0)))
+                Else
+                    PickLamp.Background = (New SolidColorBrush(Color.FromRgb(255, 255, 0)))
+                End If
+                PickingTarget.Text = Math.Round(pickTarget, 0).ToString
+
+                Dim packTarget As Integer = Convert.ToInt32(PackingActual.Text) - Convert.ToInt32(PackingExpected.Text)
+                If packTarget > 100 Then
+                    PackLamp.Background = (New SolidColorBrush(Color.FromRgb(0, 255, 0)))
+                ElseIf packTarget < 100 Then
+                    PackLamp.Background = (New SolidColorBrush(Color.FromRgb(255, 0, 0)))
+                Else
+                    PackLamp.Background = (New SolidColorBrush(Color.FromRgb(255, 255, 0)))
+                End If
+                PackingTarget.Text = Math.Round(packTarget, 0).ToString
+            End If
 
             If fiveminticker >= 20 Then '10 seconds
                 Try
@@ -52,8 +89,8 @@ Public Class wpfMainWindow
                 LoadOrders.RunWorkerAsync()
                 If Not today < Now.Date Then
                     newDay = True
-                    empcollection = New EmployeeCollection() 'Lets make sure we add new people to our employee list! :D
-                    GetAllEmployeeStats() 'Let's refresh this too, I mean, this has to be dynamic.
+                    'empcollection = New EmployeeCollection() 'Lets make sure we add new people to our employee list! :D
+                    'GetAllEmployeeStats() 'Let's refresh this too, I mean, this has to be dynamic.
                 End If
 
             ElseIf fiveminticker >= 3 Then '3 seconds
@@ -183,30 +220,6 @@ Public Class wpfMainWindow
         Else
             StopFlashingIssues()
         End If
-
-
-        'Traffic lights
-        CheckCurrentAverageSpeed()
-
-        If PickingExpected.Text = "0" Then PickingExpected.Text = "-"
-        If PickingActual.Text = "0" Then PickingActual.Text = "-"
-        If PickingTarget.Text = "0" Then PickingTarget.Text = "-"
-
-        If PackingExpected.Text = "0" Then PackingExpected.Text = "-"
-        If PackingActual.Text = "0" Then PackingActual.Text = "-"
-        If PackingTarget.Text = "0" Then PackingTarget.Text = "-"
-
-        If NewCount.Text = "0" Then NewCount.Text = "-"
-        If PickingCount.Text = "0" Then PickingCount.Text = "-"
-        If PickedCount.Text = "0" Then PickedCount.Text = "-"
-        If PackingCount.Text = "0" Then PackingCount.Text = "-"
-        If PackedCount.Text = "0" Then PackedCount.Text = "-"
-        If PostedCount.Text = "0" Then PostedCount.Text = "-"
-        If PrepackCount.Text = "0" Then PackingCount.Text = "-"
-        If IssueCount.Text = "0" Then IssueCount.Text = "-"
-        If OversoldCount.Text = "0" Then OversoldCount.Text = "-"
-        If totalsCount.Text = "0" Then totalsCount.Text = "-"
-
     End Sub
     Private LookForVersionUpdate As Boolean = False
     Private UpdateCount As Integer = 0
@@ -323,160 +336,127 @@ Public Class wpfMainWindow
         End If
     End Sub
 
-    'THANK GOD THIS ONLY RUNS ONCE A DAY
-    Dim empcollection As EmployeeCollection
-    Private Sub GetAllEmployeeStats()
-        Dim statslist1Wk As New List(Of EmpStats)
-        Dim emps1Wk As Integer = 0
-        Dim statslist2Wk As New List(Of EmpStats)
-        Dim emps2Wk As Integer = 0
-        Dim statslist3Wk As New List(Of EmpStats)
-        Dim emps3Wk As Integer = 0
-        Dim statslist4Wk As New List(Of EmpStats)
-        Dim emps4Wk As Integer = 0
-        For Each emp As Employee In empcollection.Employees
-            Dim templist1Wk As EmpStats = LoadAnalyticsFile(emp.PayrollId, Today.AddDays(-7), Today.AddDays(-6))
-            If Not templist1Wk Is Nothing Then
-                statslist1Wk.Add(templist1Wk)
-                emps1Wk += 1
-            End If
-            Dim templist2Wk As EmpStats = LoadAnalyticsFile(emp.PayrollId, Today.AddDays(-14), Today.AddDays(-13))
-            If Not templist2Wk Is Nothing Then
-                statslist2Wk.Add(templist2Wk)
-                emps2Wk += 1
-            End If
-            Dim templist3Wk As EmpStats = LoadAnalyticsFile(emp.PayrollId, Today.AddDays(-21), Today.AddDays(-20))
-            If Not templist3Wk Is Nothing Then
-                statslist3Wk.Add(templist3Wk)
-                emps3Wk += 1
-            End If
-            Dim templist4Wk As EmpStats = LoadAnalyticsFile(emp.PayrollId, Today.AddDays(-28), Today.AddDays(-27))
-            If Not templist4Wk Is Nothing Then
-                statslist4Wk.Add(templist4Wk)
-                emps4Wk += 1
-            End If
-        Next
+    ''THANK GOD THIS ONLY RUNS ONCE A DAY
+    'Dim empcollection As EmployeeCollection
+    'Private Sub GetAllEmployeeStats()
+    '    Dim statslist1Wk As New List(Of EmpStats)
+    '    Dim emps1Wk As Integer = 0
+    '    Dim statslist2Wk As New List(Of EmpStats)
+    '    Dim emps2Wk As Integer = 0
+    '    Dim statslist3Wk As New List(Of EmpStats)
+    '    Dim emps3Wk As Integer = 0
+    '    Dim statslist4Wk As New List(Of EmpStats)
+    '    Dim emps4Wk As Integer = 0
+    '    For Each emp As Employee In empcollection.Employees
+    '        Dim templist1Wk As EmpStats = LoadAnalyticsFile(emp.PayrollId, Today.AddDays(-7), Today.AddDays(-6))
+    '        If Not templist1Wk Is Nothing Then
+    '            statslist1Wk.Add(templist1Wk)
+    '            emps1Wk += 1
+    '        End If
+    '        Dim templist2Wk As EmpStats = LoadAnalyticsFile(emp.PayrollId, Today.AddDays(-14), Today.AddDays(-13))
+    '        If Not templist2Wk Is Nothing Then
+    '            statslist2Wk.Add(templist2Wk)
+    '            emps2Wk += 1
+    '        End If
+    '        Dim templist3Wk As EmpStats = LoadAnalyticsFile(emp.PayrollId, Today.AddDays(-21), Today.AddDays(-20))
+    '        If Not templist3Wk Is Nothing Then
+    '            statslist3Wk.Add(templist3Wk)
+    '            emps3Wk += 1
+    '        End If
+    '        Dim templist4Wk As EmpStats = LoadAnalyticsFile(emp.PayrollId, Today.AddDays(-28), Today.AddDays(-27))
+    '        If Not templist4Wk Is Nothing Then
+    '            statslist4Wk.Add(templist4Wk)
+    '            emps4Wk += 1
+    '        End If
+    '    Next
 
-        'So now we have 4 days of packing data, one from the past 4 weeks.
-        'For each week, we need to get the total time spent and orders complete.
-        'We need to divide each of those by the amount of employees that were involved in packing that day.
-        'This is how we get each day's proper order / time spent ratio.
-        'Then, when we have that info, add the four days together and divide by 4 to get a proper average.
+    '    'So now we have 4 days of packing data, one from the past 4 weeks.
+    '    'For each week, we need to get the total time spent and orders complete.
+    '    'We need to divide each of those by the amount of employees that were involved in packing that day.
+    '    'This is how we get each day's proper order / time spent ratio.
+    '    'Then, when we have that info, add the four days together and divide by 4 to get a proper average.
 
-        Dim Wk1Time As New TimeSpan
-        Dim Wk2Time As New TimeSpan
-        Dim Wk3Time As New TimeSpan
-        Dim Wk4Time As New TimeSpan
-        Dim Wk1Orders As Integer = 0
-        Dim Wk2Orders As Integer = 0
-        Dim Wk3Orders As Integer = 0
-        Dim Wk4Orders As Integer = 0
+    '    Dim Wk1Time As New TimeSpan
+    '    Dim Wk2Time As New TimeSpan
+    '    Dim Wk3Time As New TimeSpan
+    '    Dim Wk4Time As New TimeSpan
+    '    Dim Wk1Orders As Integer = 0
+    '    Dim Wk2Orders As Integer = 0
+    '    Dim Wk3Orders As Integer = 0
+    '    Dim Wk4Orders As Integer = 0
 
-        'WEEK; THE FIRST
-        If Not statslist1Wk.Count = 0 Then
-            For Each statlist In statslist1Wk 'Each employee
-                For Each sessionlist As List(Of WarehouseAnalytics.SessionAnalytic) In statlist.allSessions.Values 'Each employee's list of sessions
-                    For Each session In sessionlist 'Each session individually- oh my gosh, 3 for loops. I gotta do this 3 more times too.
-                        Wk1Time = TimeSpan.FromSeconds(Wk1Time.TotalSeconds + session.TimeSpan.TotalSeconds)
-                        Wk1Orders += session.OrderCount
-                    Next
-                Next
-            Next
+    '    'WEEK; THE FIRST
+    '    If Not statslist1Wk.Count = 0 Then
+    '        For Each statlist In statslist1Wk 'Each employee
+    '            For Each sessionlist As List(Of WarehouseAnalytics.SessionAnalytic) In statlist.allSessions.Values 'Each employee's list of sessions
+    '                For Each session In sessionlist 'Each session individually- oh my gosh, 3 for loops. I gotta do this 3 more times too.
+    '                    Wk1Time = TimeSpan.FromSeconds(Wk1Time.TotalSeconds + session.TimeSpan.TotalSeconds)
+    '                    Wk1Orders += session.OrderCount
+    '                Next
+    '            Next
+    '        Next
 
-            Wk1Time = TimeSpan.FromSeconds(Wk1Time.TotalSeconds / emps1Wk)
-            Wk1Orders = Wk1Orders / emps1Wk
-        End If
+    '        Wk1Time = TimeSpan.FromSeconds(Wk1Time.TotalSeconds / emps1Wk)
+    '        Wk1Orders = Wk1Orders / emps1Wk
+    '    End If
 
-        'WEEK; THE SECN0D
-        If Not statslist2Wk.Count = 0 Then
-            For Each statlist In statslist2Wk 'Each employee
-                For Each sessionlist As List(Of WarehouseAnalytics.SessionAnalytic) In statlist.allSessions.Values 'Each employee's list of sessions
-                    For Each session In sessionlist 'Each session individually
-                        Wk2Time = TimeSpan.FromSeconds(Wk2Time.TotalSeconds + session.TimeSpan.TotalSeconds)
-                        Wk2Orders += session.OrderCount
-                    Next
-                Next
-            Next
+    '    'WEEK; THE SECN0D
+    '    If Not statslist2Wk.Count = 0 Then
+    '        For Each statlist In statslist2Wk 'Each employee
+    '            For Each sessionlist As List(Of WarehouseAnalytics.SessionAnalytic) In statlist.allSessions.Values 'Each employee's list of sessions
+    '                For Each session In sessionlist 'Each session individually
+    '                    Wk2Time = TimeSpan.FromSeconds(Wk2Time.TotalSeconds + session.TimeSpan.TotalSeconds)
+    '                    Wk2Orders += session.OrderCount
+    '                Next
+    '            Next
+    '        Next
 
-            Wk2Time = TimeSpan.FromSeconds(Wk2Time.TotalSeconds / emps2Wk)
-            Wk2Orders = Wk2Orders / emps2Wk
-        End If
+    '        Wk2Time = TimeSpan.FromSeconds(Wk2Time.TotalSeconds / emps2Wk)
+    '        Wk2Orders = Wk2Orders / emps2Wk
+    '    End If
 
-        'WEEK; THE ThRD1
-        If Not statslist3Wk.Count = 0 Then
-            For Each statlist In statslist3Wk 'Each employee
-                For Each sessionlist As List(Of WarehouseAnalytics.SessionAnalytic) In statlist.allSessions.Values 'Each employee's list of sessions
-                    For Each session In sessionlist 'Each session individually
-                        Wk3Time = TimeSpan.FromSeconds(Wk3Time.TotalSeconds + session.TimeSpan.TotalSeconds)
-                        Wk3Orders += session.OrderCount
-                    Next
-                Next
-            Next
+    '    'WEEK; THE ThRD1
+    '    If Not statslist3Wk.Count = 0 Then
+    '        For Each statlist In statslist3Wk 'Each employee
+    '            For Each sessionlist As List(Of WarehouseAnalytics.SessionAnalytic) In statlist.allSessions.Values 'Each employee's list of sessions
+    '                For Each session In sessionlist 'Each session individually
+    '                    Wk3Time = TimeSpan.FromSeconds(Wk3Time.TotalSeconds + session.TimeSpan.TotalSeconds)
+    '                    Wk3Orders += session.OrderCount
+    '                Next
+    '            Next
+    '        Next
 
-            Wk3Time = TimeSpan.FromSeconds(Wk3Time.TotalSeconds / emps3Wk)
-            Wk3Orders = Wk3Orders / emps3Wk
-        End If
+    '        Wk3Time = TimeSpan.FromSeconds(Wk3Time.TotalSeconds / emps3Wk)
+    '        Wk3Orders = Wk3Orders / emps3Wk
+    '    End If
 
-        'WEEK; THE FOUUUWWWWWWWWW-
-        If Not statslist4Wk.Count = 0 Then
-            For Each statlist In statslist4Wk 'Each employee
-                For Each sessionlist As List(Of WarehouseAnalytics.SessionAnalytic) In statlist.allSessions.Values 'Each employee's list of sessions
-                    For Each session In sessionlist 'Each session individually
-                        Wk4Time = TimeSpan.FromSeconds(Wk4Time.TotalSeconds + session.TimeSpan.TotalSeconds)
-                        Wk4Orders += session.OrderCount
-                    Next
-                Next
-            Next
+    '    'WEEK; THE FOUUUWWWWWWWWW-
+    '    If Not statslist4Wk.Count = 0 Then
+    '        For Each statlist In statslist4Wk 'Each employee
+    '            For Each sessionlist As List(Of WarehouseAnalytics.SessionAnalytic) In statlist.allSessions.Values 'Each employee's list of sessions
+    '                For Each session In sessionlist 'Each session individually
+    '                    Wk4Time = TimeSpan.FromSeconds(Wk4Time.TotalSeconds + session.TimeSpan.TotalSeconds)
+    '                    Wk4Orders += session.OrderCount
+    '                Next
+    '            Next
+    '        Next
 
-            Wk4Time = TimeSpan.FromSeconds(Wk4Time.TotalSeconds / emps4Wk)
-            Wk4Orders = Wk4Orders / emps4Wk
-        End If
+    '        Wk4Time = TimeSpan.FromSeconds(Wk4Time.TotalSeconds / emps4Wk)
+    '        Wk4Orders = Wk4Orders / emps4Wk
+    '    End If
 
-        Dim masterTimespan As TimeSpan = TimeSpan.FromSeconds((Wk1Time.TotalSeconds + Wk2Time.TotalSeconds + Wk3Time.TotalSeconds + Wk4Time.TotalSeconds) / 4)
-        Dim masterOrders As Integer = (Wk1Orders + Wk2Orders + Wk3Orders + Wk4Orders) / 4
+    '    Dim masterTimespan As TimeSpan = TimeSpan.FromSeconds((Wk1Time.TotalSeconds + Wk2Time.TotalSeconds + Wk3Time.TotalSeconds + Wk4Time.TotalSeconds) / 4)
+    '    Dim masterOrders As Integer = (Wk1Orders + Wk2Orders + Wk3Orders + Wk4Orders) / 4
 
-        'AND THE RESULT IS...
-        masterAverage = masterOrders / masterTimespan.TotalSeconds
+    '    'AND THE RESULT IS...
+    '    masterAverage = masterOrders / masterTimespan.TotalSeconds
 
-    End Sub
-    Dim masterAverage As Double = 0 'Absolutely necessary
+    'End Sub
+    'Dim masterAverage As Double = 0 'Absolutely necessary
 
     Private Sub CheckCurrentAverageSpeed()
-        Dim eightamToday As DateTime = today.Date
-        eightamToday = eightamToday.AddHours(8)
-        Dim todaysTimespan As TimeSpan = Now - eightamToday
-
-        If PickedCount.Text = "-" Then
-
-        Else
-            'Dim currentAveragePicked As Double = PickedCount.Text / todaysTimespan.TotalSeconds
-            PickingActual.Text = (Convert.ToInt32(PickedCount) + Convert.ToInt32(PackingCount) + Convert.ToInt32(PackedCount)).ToString
-
-            PickingExpected.Text = totalforavgsales.ToString
-
-            Dim eightHoursConvertedToSeconds As Integer = 28800 '(8 * 60) * 60
-            Dim vsAveragePicked As Double = (totalforavgsales / eightHoursConvertedToSeconds) * todaysTimespan.TotalSeconds
-            PickingTarget.Text = vsAveragePicked.ToString
-
-        End If
-
-        If PackedCount.Text = "-" Then
-
-        Else
-            'Dim currentAveragePacked As Double = PackedCount.Text / todaysTimespan.TotalSeconds
-            PackingActual.Text = PackedCount.ToString
-
-            PackingExpected.Text = totalforavgsales.ToString
-
-            Dim eightHoursConvertedToSeconds As Integer = 28800 '(8 * 60) * 60
-            Dim vsAveragePacked As Double = (totalforavgsales / eightHoursConvertedToSeconds) * todaysTimespan.TotalSeconds
-            PackingTarget.Text = vsAveragePacked.ToString
-
-        End If
-
-
-
-
+        PickingActual.Text = (Convert.ToInt32(PickedCount.Text) + Convert.ToInt32(PackingCount.Text) + Convert.ToInt32(PackedCount.Text)).ToString
+        PackingActual.Text = PackedCount.Text.ToString
     End Sub
 
     Private Function LoadAnalyticsFile(empID As Integer, FirstDate As DateTime, SecondDate As DateTime) As EmpStats
