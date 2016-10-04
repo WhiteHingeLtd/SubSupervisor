@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="SubSupervisorScreen.exe" version="1.1.0.17" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="SubSupervisorScreen.exe" version="1.1.0.19" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="SubSupervisorScreen" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="SubSupervisorScreen" version="1.0.0.0" publicKeyToken="4060900C02491731" language="neutral" processorArchitecture="msil" />
     <commandLine file="SubSupervisorScreen.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -49,7 +49,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>RCkn9noxZA4GO6yYw0JViuTz1dorn3vsIxo8cDr9gcQ=</dsig:DigestValue>
+        <dsig:DigestValue>OybctKwJREN5jibrvfmsIzD10JtJO1yYfvbnfcLu6EU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -330,14 +330,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SubSupervisorScreen.exe" size="98704">
-      <assemblyIdentity name="SubSupervisorScreen" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SubSupervisorScreen.exe" size="99728">
+      <assemblyIdentity name="SubSupervisorScreen" version="1.0.0.0" publicKeyToken="4060900C02491731" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>uo+UzULSVFj7M1FlH5bNg//nylkApQWmjC8gxo3IppI=</dsig:DigestValue>
+        <dsig:DigestValue>J0HZgFc4eXJiezQWMmXxWw87p2GCevvr8N952yBCU1E=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -474,14 +474,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WHLClasses.dll" size="295936">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WHLClasses.dll" size="296448">
       <assemblyIdentity name="WHLClasses" version="1.0.0.0" publicKeyToken="4060900C02491731" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>4N60CtkGmjRTu0QSGUt0UyMvb11T1+0IPZAOBXAfgVw=</dsig:DigestValue>
+        <dsig:DigestValue>29BZyMYrgIcIxaiokeJ8f3s8xhOK+f+2/77ESgR2hek=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
