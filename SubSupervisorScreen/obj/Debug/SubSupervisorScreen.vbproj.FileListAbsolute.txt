@@ -84,14 +84,6 @@ Z:\.V5\Desktop\GitHub\SubSupervisorScreen\SubSupervisorScreen\bin\Debug\ru\Syste
 Z:\.V5\Desktop\GitHub\SubSupervisorScreen\SubSupervisorScreen\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
 Z:\.V5\Desktop\GitHub\SubSupervisorScreen\SubSupervisorScreen\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
 Z:\Folders\Documents\Projects\SubSupervisor\SubSupervisorScreen\bin\Debug\SubSupervisorScreen.exe.config
-Z:\Folders\Documents\Projects\SubSupervisor\SubSupervisorScreen\obj\Debug\SubSupervisorScreen.exe
-Z:\Folders\Documents\Projects\SubSupervisor\SubSupervisorScreen\obj\Debug\SubSupervisorScreen.xml
-Z:\Folders\Documents\Projects\SubSupervisor\SubSupervisorScreen\obj\Debug\SubSupervisorScreen.pdb
-Z:\Folders\Documents\Projects\SubSupervisor\SubSupervisorScreen\obj\Debug\SubSupervisorScreen.vbprojResolveAssemblyReference.cache
-Z:\Folders\Documents\Projects\SubSupervisor\SubSupervisorScreen\obj\Debug\wpfMainWindow.g.vb
-Z:\Folders\Documents\Projects\SubSupervisor\SubSupervisorScreen\obj\Debug\SubSupervisorScreen_Content.g.vb
-Z:\Folders\Documents\Projects\SubSupervisor\SubSupervisorScreen\obj\Debug\SubSupervisorScreen_MarkupCompile.cache
-Z:\Folders\Documents\Projects\SubSupervisor\SubSupervisorScreen\obj\Debug\SubSupervisorScreen_MarkupCompile.lref
 Z:\Folders\Documents\Projects\SubSupervisor\SubSupervisorScreen\bin\Debug\SubSupervisorScreen.exe.manifest
 Z:\Folders\Documents\Projects\SubSupervisor\SubSupervisorScreen\bin\Debug\SubSupervisorScreen.application
 Z:\Folders\Documents\Projects\SubSupervisor\SubSupervisorScreen\bin\Debug\SubSupervisorScreen.exe
@@ -138,6 +130,11 @@ Z:\Folders\Documents\Projects\SubSupervisor\SubSupervisorScreen\bin\Debug\ko\Sys
 Z:\Folders\Documents\Projects\SubSupervisor\SubSupervisorScreen\bin\Debug\ru\System.Windows.Interactivity.resources.dll
 Z:\Folders\Documents\Projects\SubSupervisor\SubSupervisorScreen\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
 Z:\Folders\Documents\Projects\SubSupervisor\SubSupervisorScreen\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
+Z:\Folders\Documents\Projects\SubSupervisor\SubSupervisorScreen\obj\Debug\SubSupervisorScreen.vbprojResolveAssemblyReference.cache
+Z:\Folders\Documents\Projects\SubSupervisor\SubSupervisorScreen\obj\Debug\wpfMainWindow.g.vb
+Z:\Folders\Documents\Projects\SubSupervisor\SubSupervisorScreen\obj\Debug\SubSupervisorScreen_Content.g.vb
+Z:\Folders\Documents\Projects\SubSupervisor\SubSupervisorScreen\obj\Debug\SubSupervisorScreen_MarkupCompile.cache
+Z:\Folders\Documents\Projects\SubSupervisor\SubSupervisorScreen\obj\Debug\SubSupervisorScreen_MarkupCompile.lref
 Z:\Folders\Documents\Projects\SubSupervisor\SubSupervisorScreen\obj\Debug\wpfMainWindow.baml
 Z:\Folders\Documents\Projects\SubSupervisor\SubSupervisorScreen\obj\Debug\SubSupervisorScreen.g.resources
 Z:\Folders\Documents\Projects\SubSupervisor\SubSupervisorScreen\obj\Debug\SubSupervisorScreen.Form1.resources
@@ -145,3 +142,6 @@ Z:\Folders\Documents\Projects\SubSupervisor\SubSupervisorScreen\obj\Debug\SubSup
 Z:\Folders\Documents\Projects\SubSupervisor\SubSupervisorScreen\obj\Debug\SubSupervisorScreen.vbproj.GenerateResource.Cache
 Z:\Folders\Documents\Projects\SubSupervisor\SubSupervisorScreen\obj\Debug\SubSupervisorScreen.exe.manifest
 Z:\Folders\Documents\Projects\SubSupervisor\SubSupervisorScreen\obj\Debug\SubSupervisorScreen.application
+Z:\Folders\Documents\Projects\SubSupervisor\SubSupervisorScreen\obj\Debug\SubSupervisorScreen.exe
+Z:\Folders\Documents\Projects\SubSupervisor\SubSupervisorScreen\obj\Debug\SubSupervisorScreen.xml
+Z:\Folders\Documents\Projects\SubSupervisor\SubSupervisorScreen\obj\Debug\SubSupervisorScreen.pdb

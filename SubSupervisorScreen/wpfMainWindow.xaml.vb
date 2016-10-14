@@ -30,6 +30,7 @@ Public Class wpfMainWindow
     End Sub
 
     Dim newDay As Boolean = False
+    Dim previousDay As New Date
     Dim totalforavgsales As Integer = 0
     Dim today As Date = Now.Date
     Dim ClockTotal As Boolean = True
@@ -84,8 +85,9 @@ Public Class wpfMainWindow
                 End Try
                 ReloadingOrddefLabel.Text = "Refreshing order data"
                 LoadOrders.RunWorkerAsync()
-                If Not today < Now.Date Then
+                If today > previousDay Then
                     newDay = True
+                    previousDay = today
                 End If
 
             ElseIf fiveminticker >= 3 Then '3 seconds
@@ -122,7 +124,6 @@ Public Class wpfMainWindow
         fiveminticker = 0 'Reset timer
 
         Dim refresh As Boolean = False 'Set the while dependancy
-        Dim elipsesString As String = "" 'During while
 
         While Not refresh
             Application.DoEvents()
@@ -131,10 +132,6 @@ Public Class wpfMainWindow
                 CurrentOrddef = Loader.LoadOrddef("T:\AppData\Orders\.orddef") 'Load the file! Please. Why won't you load?
                 refresh = True 'Success? Exit while loop.
             Catch ex As Exception
-                elipsesString += "." 'Add a dot to our actively changing elipses - show the program hasn't frozen
-                If elipsesString.Length > 3 Then
-                    elipsesString = "" 'If we have 4 dots or more, kill it.
-                End If
             End Try
         End While
 
