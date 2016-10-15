@@ -42,36 +42,42 @@ Public Class wpfMainWindow
             fiveminticker += 1 'Increment timer.
 
             If fiveminticker Mod 5 = 0 Then
-                newCalculator = Loader.LoadAnything("T:\AppData\Analytics\Average.SPAS", False).Value
+                If Now.Hour < 19 And Now.Hour >= 7 Then
 
-                PickingExpected.Text = Math.Round(newCalculator.WorkOutAveragePicking).ToString
-                PackingExpected.Text = Math.Round(newCalculator.WorkOutAveragePacking).ToString
+                    newCalculator = Loader.LoadAnything("T:\AppData\Analytics\Average.SPAS", False).Value
 
-                TickerText.Text = "          " + newCalculator.MessageText.PadRight(45, " ") + "          "
+                    PickingExpected.Text = Math.Round(newCalculator.WorkOutAveragePicking).ToString
+                    PackingExpected.Text = Math.Round(newCalculator.WorkOutAveragePacking).ToString
 
-                SetActual()
+                    TickerText.Text = "          " + newCalculator.MessageText.PadRight(45, " ") + "          "
 
-                Dim pickTarget As Integer = Convert.ToInt32(PickingActual.Text) - Convert.ToInt32(PickingExpected.Text)
-                If pickTarget > 100 Then
-                    PickLamp.Background = (New SolidColorBrush(Color.FromRgb(0, 255, 0)))
-                ElseIf pickTarget < -100 Then
-                    PickLamp.Background = (New SolidColorBrush(Color.FromRgb(255, 0, 0)))
+                    SetActual()
+
+                    Dim pickTarget As Integer = Convert.ToInt32(PickingActual.Text) - Convert.ToInt32(PickingExpected.Text)
+                    If pickTarget > 100 Then
+                        PickLamp.Background = (New SolidColorBrush(Color.FromRgb(0, 255, 0)))
+                    ElseIf pickTarget < -100 Then
+                        PickLamp.Background = (New SolidColorBrush(Color.FromRgb(255, 0, 0)))
+                    Else
+                        PickLamp.Background = (New SolidColorBrush(Color.FromRgb(255, 255, 0)))
+                    End If
+                    PickingTarget.Text = Math.Round(pickTarget, 0).ToString
+
+                    Dim packTarget As Integer = Convert.ToInt32(PackingActual.Text) - Convert.ToInt32(PackingExpected.Text)
+                    If packTarget > 100 Then
+                        PackLamp.Background = (New SolidColorBrush(Color.FromRgb(0, 255, 0)))
+                    ElseIf packTarget < -100 Then
+                        PackLamp.Background = (New SolidColorBrush(Color.FromRgb(255, 0, 0)))
+                    Else
+                        PackLamp.Background = (New SolidColorBrush(Color.FromRgb(255, 255, 0)))
+                    End If
+                    PackingTarget.Text = Math.Round(packTarget, 0).ToString
+
+                    ClockTotal = Not ClockTotal
                 Else
-                    PickLamp.Background = (New SolidColorBrush(Color.FromRgb(255, 255, 0)))
+                    Dim tempMessage As String = "Will refresh data at 8am."
+                    TickerText.Text = "          " + tempMessage.PadRight(45, " ") + "          "
                 End If
-                PickingTarget.Text = Math.Round(pickTarget, 0).ToString
-
-                Dim packTarget As Integer = Convert.ToInt32(PackingActual.Text) - Convert.ToInt32(PackingExpected.Text)
-                If packTarget > 100 Then
-                    PackLamp.Background = (New SolidColorBrush(Color.FromRgb(0, 255, 0)))
-                ElseIf packTarget < -100 Then
-                    PackLamp.Background = (New SolidColorBrush(Color.FromRgb(255, 0, 0)))
-                Else
-                    PackLamp.Background = (New SolidColorBrush(Color.FromRgb(255, 255, 0)))
-                End If
-                PackingTarget.Text = Math.Round(packTarget, 0).ToString
-
-                ClockTotal = Not ClockTotal
             End If
 
             If fiveminticker >= 20 Then '10 seconds
