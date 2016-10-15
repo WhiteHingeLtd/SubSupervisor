@@ -13,6 +13,11 @@ Public Class wpfMainWindow
     Dim LoadOrders As New BackgroundWorker
     Dim RefreshTimer As New Timer
 
+    Dim SaturdayPacked As Integer = 0
+    Dim saturdaysaved As Boolean = False
+    Dim SundayPacked As Integer = 0
+    Dim sundaysaved As Boolean = False
+
     Private Sub LoadTheProgram() Handles Me.Loaded
 
         LoadOrders.WorkerReportsProgress = True
@@ -75,6 +80,16 @@ Public Class wpfMainWindow
 
                     ClockTotal = Not ClockTotal
                 Else
+                    If Now.DayOfWeek = DayOfWeek.Saturday And Now.Hour = 19 And Not saturdaysaved Then
+                        SaturdayPacked = Convert.ToInt32(PackedCount.Text)
+                        Loader.SaveDataToFile("SaturdayPackedItems.IntFile", SaturdayPacked, "T:\AppData\Analytics")
+                        saturdaysaved = True
+                    ElseIf Now.DayOfWeek = DayOfWeek.Sunday And Now.Hour = 19 And Not sundaysaved Then
+                        SundayPacked = Convert.ToInt32(PackedCount.Text)
+                        Loader.SaveDataToFile("SundayPackedItems.IntFile", SundayPacked, "T:\AppData\Analytics")
+                        sundaysaved = True
+                    End If
+
                     Dim tempMessage As String = "Will refresh data at 8am."
                     TickerText.Text = "          " + tempMessage.PadRight(45, " ") + "          "
                 End If
@@ -93,6 +108,8 @@ Public Class wpfMainWindow
                 LoadOrders.RunWorkerAsync()
                 If today > previousDay Then
                     newDay = True
+                    saturdaysaved = False
+                    sundaysaved = False
                     previousDay = today
                 End If
 
