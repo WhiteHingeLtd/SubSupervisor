@@ -31,7 +31,12 @@ Public Class wpfMainWindow
     End Sub
 
     Private Sub ToDoWhenClosing() Handles Me.Closed
-        WindowToClose.CloseWinProper()
+        Try
+            WindowToClose.CloseWinProper()
+        Catch ex As Exception
+            MsgBox("The sub supervisor screen failed to close program correctly. Please end the program from the task manager!" + vbNewLine + vbNewLine + ex.ToString)
+            Me.Close()
+        End Try
     End Sub
 
     Dim newDay As Boolean = False
