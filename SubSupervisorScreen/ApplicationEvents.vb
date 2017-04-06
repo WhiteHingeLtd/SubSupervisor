@@ -8,15 +8,9 @@ Namespace My
     ' StartupNextInstance: Raised when launching a single-instance application and the application is already active. 
     ' NetworkAvailabilityChanged: Raised when the network connection is connected or disconnected.
     Partial Friend Class MyApplication
-        Private BackgroundErrorCount As Integer = 0
-
         Public Sub MyApplication_UnhandledException(sender As Object, e As UnhandledExceptionEventArgs) Handles Me.UnhandledException
             WHLClasses.Reporting.ReportException(e.Exception, False)
             e.ExitApplication = False
-            BackgroundErrorCount += 1
-            If BackgroundErrorCount >= 5 Then
-                e.ExitApplication = True
-            End If
         End Sub
     End Class
 End Namespace
