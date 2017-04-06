@@ -110,7 +110,15 @@ Public Class wpfMainWindow
 
                 End Try
                 ReloadingOrddefLabel.Text = "Refreshing order data"
-                LoadOrders.RunWorkerAsync()
+
+                Dim refreshingOrdersNow As Boolean = True
+                While refreshingOrdersNow
+                    If Not LoadOrders.IsBusy Then
+                        LoadOrders.RunWorkerAsync()
+                        refreshingOrdersNow = False
+                    End If
+                End While
+
                 If today > previousDay Then
                     newDay = True
                     saturdaysaved = False
@@ -258,12 +266,7 @@ Public Class wpfMainWindow
     End Sub
 
     Private Sub LoadOrders_DoWork(sender As Object, e As DoWorkEventArgs)
-        If Not workbusy Then
-            workbusy = True
-            RefreshOrddef()
-            workbusy = False
-        End If
-
+        RefreshOrddef()
     End Sub
 
     Private Sub LoadOrders_ProgressChanged(sender As Object, e As ProgressChangedEventArgs)
