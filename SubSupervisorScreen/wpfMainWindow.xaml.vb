@@ -1,8 +1,6 @@
 ﻿Imports System.ComponentModel
 Imports System.Windows.Media
 Imports WHLClasses
-Imports WHLClasses.Linnworks.Orders
-Imports WHLClasses.NetCom
 Imports WHLClasses.Orders
 
 Public Class wpfMainWindow
@@ -165,7 +163,7 @@ Public Class wpfMainWindow
             Application.DoEvents()
             Try
                 Threading.Thread.Sleep(2000) 'Sleep before checking.
-                CurrentOrddef = Loader.LoadOrddef("T:\AppData\Orders\.orddef") 'Load the file! Please. Why won't you load?
+                CurrentOrddef = Loader.LoadOrddef("T:\AppData\Orders\.orddef",False,True) 'Load the file! Please. Why won't you load?
                 refresh = True 'Success? Exit while loop.
             Catch ex As Exception
             End Try
