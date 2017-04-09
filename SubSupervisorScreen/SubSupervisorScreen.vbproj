@@ -25,7 +25,8 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://apps.ad.whitehinge.com/AppPublish/SSS/</InstallUrl>
-    <ApplicationRevision>10</ApplicationRevision>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>12</ApplicationRevision>
     <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -167,7 +168,7 @@
     <None Include="SubSupervisorScreen_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Documents\Projects\LinnworksNetSDK\Linnworks\src\net\LinnworksAPI\LinnworksAPI.csproj">
+    <ProjectReference Include="..\..\LinnworksNetSDK\Linnworks\src\net\LinnworksAPI\LinnworksAPI.csproj">
       <Project>{121d410c-db32-4245-996f-3b1134b0f181}</Project>
       <Name>LinnworksAPI</Name>
     </ProjectReference>
