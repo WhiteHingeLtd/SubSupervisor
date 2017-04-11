@@ -264,7 +264,9 @@ Public Class wpfMainWindow
     End Sub
 
     Private Sub LoadOrders_DoWork(sender As Object, e As DoWorkEventArgs)
-        RefreshOrddef()
+        If Now.Hour < 19 And Now.Hour >= 7 Then
+            RefreshOrddef()
+        End If
     End Sub
 
     Private Sub LoadOrders_ProgressChanged(sender As Object, e As ProgressChangedEventArgs)
