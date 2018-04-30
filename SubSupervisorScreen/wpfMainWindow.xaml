@@ -40,252 +40,250 @@
             <BeginStoryboard Storyboard="{StaticResource Ticker}"/>
         </EventTrigger>
     </Window.Triggers>
-    <Grid>
-        <Grid x:Name="TimeGrid" HorizontalAlignment="Left" Height="141.334" VerticalAlignment="Top" Width="538.948" Background="Black" Margin="10,11.92,0,0">
-            <TextBlock x:Name="ClockTxt" Margin="0,15,0,0" TextWrapping="Wrap" Text="00:00:00" FontFamily="alarm clock" FontSize="104" Foreground="Red" TextAlignment="Center">
-                <TextBlock.Effect>
-                    <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="30"/>
-                </TextBlock.Effect>
-            </TextBlock>
-            <Border BorderBrush="#FF7C7C7C" BorderThickness="4"/>
-        </Grid>
-        <TextBlock x:Name="ReloadingOrddefLabel" Height="25" Margin="578,149,475,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18" Foreground="#FF444444" Text="-"/>
-        <Grid x:Name="PickingGrid" HorizontalAlignment="Left" Margin="10,171.334,0,10" Width="538.948" Background="#FF0D1861">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="119*"/>
-                <ColumnDefinition Width="10*"/>
-                <ColumnDefinition Width="255"/>
-                <ColumnDefinition Width="20*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="125"/>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="105"/>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="105"/>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="105"/>
-                <RowDefinition Height="10*"/>
-            </Grid.RowDefinitions>
-            <Border BorderBrush="#FF7C7C7C" BorderThickness="4" Grid.RowSpan="8" Grid.ColumnSpan="4" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" Margin="0,0,0,0.001">
-
-            </Border>
-            <Grid x:Name="PickLamp" Background="Black" Margin="10,0" Grid.Column="3" Grid.Row="6"/>
-            <TextBlock x:Name="Picking" Margin="10,28,10,0" TextWrapping="Wrap" FontSize="72" Foreground="#FFE6E6E6" TextAlignment="Center" Text="PICKING" Grid.ColumnSpan="4"/>
-            <Grid Background="Black" Grid.Row="6" Grid.Column="2" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
-                <TextBlock x:Name="PickingTarget" TextWrapping="Wrap" Text="0" Foreground="Red" FontFamily="alarm clock" FontSize="96" TextAlignment="Right">
+    <Viewbox>
+        <Grid Width="1600" Height="900">
+            <Grid x:Name="TimeGrid" HorizontalAlignment="Left" Height="141.334" VerticalAlignment="Top" Width="538.948" Background="Black" Margin="10,11.92,0,0">
+                <TextBlock x:Name="ClockTxt" Margin="0,15,0,0" TextWrapping="Wrap" Text="00:00:00" FontFamily="alarm clock" FontSize="104" Foreground="Red" TextAlignment="Center">
                     <TextBlock.Effect>
-                        <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="18"/>
+                        <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="30"/>
                     </TextBlock.Effect>
                 </TextBlock>
+                <Border BorderBrush="#FF7C7C7C" BorderThickness="4"/>
             </Grid>
-            <Grid Background="Black" Grid.Row="2" Grid.Column="2" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
-                <TextBlock x:Name="PickingExpected" TextWrapping="Wrap" Text="0" Foreground="Red" FontFamily="alarm clock" FontSize="96" TextAlignment="Right">
-                    <TextBlock.Effect>
-                        <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="18"/>
-                    </TextBlock.Effect>
-                </TextBlock>
-            </Grid>
-            <Grid Background="Black" Grid.Row="4" Grid.Column="2" Margin="0,0.001,0,0" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
-                <TextBlock x:Name="PickingActual" TextWrapping="Wrap" Text="0" Foreground="Red" FontFamily="alarm clock" FontSize="96" TextAlignment="Right">
-                    <TextBlock.Effect>
-                        <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="18"/>
-                    </TextBlock.Effect>
-                </TextBlock>
-            </Grid>
-            <TextBlock x:Name="PickTar_Copy" Margin="0,24,0,0" TextWrapping="Wrap" FontSize="48" Foreground="#FFB9B9B9" TextAlignment="Right" Grid.Row="2" d:LayoutOverrides="Height, LeftMargin, RightMargin, TopMargin, BottomMargin" Text="EXPECTED"/>
-            <TextBlock x:Name="PickTar_Copy1" Margin="4,24,0,0" TextWrapping="Wrap" FontSize="48" Foreground="#FFB9B9B9" TextAlignment="Right" Grid.Row="4" d:LayoutOverrides="VerticalAlignment, LeftMargin, RightMargin, TopMargin, BottomMargin" Text="ACTUAL"/>
-            <TextBlock x:Name="PickTar_Copy2" Margin="4,24,0,0" TextWrapping="Wrap" FontSize="48" Foreground="#FFB9B9B9" TextAlignment="Right" Grid.Row="6" d:LayoutOverrides="VerticalAlignment, LeftMargin, RightMargin, TopMargin, BottomMargin" Text="DIFF +/-"/>
-        </Grid>
-        <Grid x:Name="PackingGrid" Margin="578.5,171.334,474.552,10" Background="#FF0D1861">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="119*"/>
-                <ColumnDefinition Width="10*"/>
-                <ColumnDefinition Width="255"/>
-                <ColumnDefinition Width="20*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="125"/>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="105"/>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="105"/>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="105"/>
-                <RowDefinition Height="10*"/>
-            </Grid.RowDefinitions>
-            <Border BorderBrush="#FF7C7C7C" BorderThickness="4" Grid.RowSpan="8" Grid.ColumnSpan="4" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" Margin="0,0,0,0.001">
-
-            </Border>
-            <Grid x:Name="PackLamp" Background="Black" Margin="10,0" Grid.Column="3" Grid.Row="6"/>
-            <TextBlock x:Name="Picking1" Margin="10,28,10,0" TextWrapping="Wrap" FontSize="72" Foreground="#FFE6E6E6" TextAlignment="Center" Text="PACKING" Grid.ColumnSpan="4"/>
-            <Grid Background="Black" Grid.Row="6" Grid.Column="2" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
-                <TextBlock x:Name="PackingTarget" TextWrapping="Wrap" Text="0" Foreground="Red" FontFamily="alarm clock" FontSize="96" TextAlignment="Right">
-                    <TextBlock.Effect>
-                        <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="18"/>
-                    </TextBlock.Effect>
-                </TextBlock>
-            </Grid>
-            <Grid Background="Black" Grid.Row="2" Grid.Column="2" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
-                <TextBlock x:Name="PackingExpected" TextWrapping="Wrap" Text="0" Foreground="Red" FontFamily="alarm clock" FontSize="96" TextAlignment="Right">
-                    <TextBlock.Effect>
-                        <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="18"/>
-                    </TextBlock.Effect>
-                </TextBlock>
-            </Grid>
-            <Grid Background="Black" Grid.Row="4" Grid.Column="2" Margin="0,0.001,0,0" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
-                <TextBlock x:Name="PackingActual" TextWrapping="Wrap" Text="0" Foreground="Red" FontFamily="alarm clock" FontSize="96" TextAlignment="Right">
-                    <TextBlock.Effect>
-                        <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="18"/>
-                    </TextBlock.Effect>
-                </TextBlock>
-            </Grid>
-            <TextBlock x:Name="PickTar_Copy3" Margin="0,24,0,0" TextWrapping="Wrap" FontSize="48" Foreground="#FFB9B9B9" TextAlignment="Right" Grid.Row="2" d:LayoutOverrides="Height, LeftMargin, RightMargin, TopMargin, BottomMargin" Text="EXPECTED"/>
-            <TextBlock x:Name="PickTar_Copy4" Margin="4,24,0,0" TextWrapping="Wrap" FontSize="48" Foreground="#FFB9B9B9" TextAlignment="Right" Grid.Row="4" d:LayoutOverrides="VerticalAlignment, LeftMargin, RightMargin, TopMargin, BottomMargin" Text="ACTUAL"/>
-            <TextBlock x:Name="PickTar_Copy5" Margin="4,24,0,0" TextWrapping="Wrap" FontSize="48" Foreground="#FFB9B9B9" TextAlignment="Right" Grid.Row="6" d:LayoutOverrides="VerticalAlignment, LeftMargin, RightMargin, TopMargin, BottomMargin"><Run Text="DIFF +/-"/><LineBreak/><Run Text=""/><LineBreak/><Run/></TextBlock>
-        </Grid>
-        <Grid x:Name="TotalsGrid" Margin="0,11.92,10,10" Background="#FF5D4800" HorizontalAlignment="Right" Width="437.604">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="27.151"/>
-                <RowDefinition Height="75"/>
-                <RowDefinition/>
-                <RowDefinition Height="593"/>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="92.876"/>
-                <RowDefinition Height="20"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="10"/>
-            </Grid.ColumnDefinitions>
-            <Border BorderBrush="#FF7C7C7C" BorderThickness="4" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" Grid.RowSpan="7" Grid.ColumnSpan="2"/>
-            <TextBlock x:Name="Totals" TextWrapping="Wrap" FontSize="72" Foreground="#FFE6E6E6" TextAlignment="Center" Text="TOTALS" d:LayoutOverrides="LeftMargin, RightMargin" Grid.ColumnSpan="2" Margin="0,-8.151,0,0" Grid.Row="1"/>
-            <TextBlock x:Name="IssuesTot_Copy1" Margin="62.658,16.54,0,12.835" TextWrapping="Wrap" FontSize="48" Foreground="#FFB9B9B9" TextAlignment="Right" Text="TOTAL" Grid.Row="5" HorizontalAlignment="Left" Width="134.568" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
-            <Rectangle Fill="Black" Margin="0,1.44,-0.512,0" Stroke="Black" Grid.Row="5" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" HorizontalAlignment="Right" Width="213.253"/>
-            <TextBlock x:Name="totalsCount" Margin="214.863,6.665,-0.512,3.335" TextWrapping="Wrap" Text="0" Foreground="Red" FontFamily="alarm clock" FontSize="80" TextAlignment="Right" Grid.Row="5">
-                <TextBlock.Effect>
-                    <DropShadowEffect Color="#FFFF4444" ShadowDepth="0" BlurRadius="9"/>
-                </TextBlock.Effect>
-            </TextBlock>
-            <Grid x:Name="SmallTotalsGrid" Margin="10,0,-0.512,0" Grid.Row="3" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
+            <TextBlock x:Name="ReloadingOrddefLabel" Height="25" Margin="578,149,475,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18" Foreground="#FF444444" Text="-"/>
+            <Grid x:Name="PickingGrid" HorizontalAlignment="Left" Margin="10,171.334,0,10" Width="538.948" Background="#FF0D1861">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="26.604"/>
-                    <ColumnDefinition Width="140"/>
-                    <ColumnDefinition Width="7.5"/>
-                    <ColumnDefinition Width="9.5"/>
-                    <ColumnDefinition Width="7.512"/>
+                    <ColumnDefinition Width="17*"/>
+                    <ColumnDefinition Width="0*"/>
+                    <ColumnDefinition Width="279.333"/>
+                    <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="57"/>
-                    <RowDefinition/>
-                    <RowDefinition Height="57"/>
-                    <RowDefinition/>
-                    <RowDefinition Height="57"/>
-                    <RowDefinition/>
-                    <RowDefinition Height="57"/>
-                    <RowDefinition/>
-                    <RowDefinition Height="57"/>
-                    <RowDefinition/>
-                    <RowDefinition Height="57"/>
-                    <RowDefinition/>
-                    <RowDefinition Height="57"/>
-                    <RowDefinition/>
-                    <RowDefinition Height="57"/>
-                    <RowDefinition/>
-                    <RowDefinition Height="57"/>
+                    <RowDefinition Height="125"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="105"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="105"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="105"/>
+                    <RowDefinition Height="10*"/>
                 </Grid.RowDefinitions>
-                <Grid Background="Black" Grid.Row="2" Grid.Column="2" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
-                    <TextBlock x:Name="PickingCount" TextWrapping="Wrap" Text="0" Foreground="Red" FontFamily="alarm clock" FontSize="48" TextAlignment="Right" Margin="0,4,0,0">
+                <Border BorderBrush="#FF7C7C7C" BorderThickness="4" Grid.RowSpan="8" Grid.ColumnSpan="4" Margin="0,0,-0.333,-0.333"/>
+                <Grid x:Name="PickLamp" Background="Black" Margin="4,0,17.667,0.333" Grid.Column="3" Grid.Row="6"/>
+                <TextBlock x:Name="Picking" Margin="10,28,9.667,0.333" TextWrapping="Wrap" FontSize="72" Foreground="#FFE6E6E6" TextAlignment="Center" Text="PICKING" Grid.ColumnSpan="4"/>
+                <Grid Background="Black" Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2" Margin="1.333,0,25.667,0.333">
+                    <TextBlock x:Name="PickingTarget" TextWrapping="Wrap" Text="99999" Foreground="Red" FontFamily="alarm clock" FontSize="96" TextAlignment="Right">
                         <TextBlock.Effect>
-                            <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="13"/>
+                            <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="18"/>
                         </TextBlock.Effect>
                     </TextBlock>
                 </Grid>
-                <Grid Background="Black" Grid.Row="4" Grid.Column="2" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
-                    <TextBlock x:Name="PickedCount" TextWrapping="Wrap" Text="0" Foreground="Red" FontFamily="alarm clock" FontSize="48" TextAlignment="Right" Margin="0,4,0,0">
+                <Grid Background="Black" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="1.333,0.333,25.667,0">
+                    <TextBlock x:Name="PickingExpected" TextWrapping="Wrap" Text="0" Foreground="Red" FontFamily="alarm clock" FontSize="96" TextAlignment="Right">
                         <TextBlock.Effect>
-                            <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="13"/>
+                            <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="18"/>
                         </TextBlock.Effect>
                     </TextBlock>
                 </Grid>
-                <Grid Background="Black" Grid.Row="6" Grid.Column="2" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
-                    <TextBlock x:Name="PackingCount" TextWrapping="Wrap" Text="0" Foreground="Red" FontFamily="alarm clock" FontSize="48" TextAlignment="Right" Margin="0,4,0,0">
+                <Grid Background="Black" Grid.Row="3" Grid.Column="2" Margin="1.333,79,25.667,79" Grid.ColumnSpan="2" Grid.RowSpan="3">
+                    <TextBlock x:Name="PickingActual" TextWrapping="Wrap" Text="0" Foreground="Red" FontFamily="alarm clock" FontSize="96" TextAlignment="Right">
                         <TextBlock.Effect>
-                            <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="13"/>
+                            <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="18"/>
                         </TextBlock.Effect>
                     </TextBlock>
                 </Grid>
-                <Grid Background="Black" Grid.Column="2" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
-                    <TextBlock x:Name="NewCount" TextWrapping="Wrap" Text="0" Foreground="Red" FontFamily="alarm clock" FontSize="48" TextAlignment="Right" Margin="0,4,0,0">
+                <TextBlock x:Name="PickTar_Copy" Margin="0,24.333,0.667,0" TextWrapping="Wrap" FontSize="48" Foreground="#FFB9B9B9" TextAlignment="Right" Grid.Row="2" Text="EXPECTED"/>
+                <TextBlock x:Name="PickTar_Copy1" Margin="4,23.667,0.667,79" TextWrapping="Wrap" FontSize="48" Foreground="#FFB9B9B9" TextAlignment="Right" Grid.Row="4" Text="ACTUAL" Grid.RowSpan="2"/>
+                <TextBlock x:Name="PickTar_Copy2" Margin="4,24,0.667,0.333" TextWrapping="Wrap" FontSize="48" Foreground="#FFB9B9B9" TextAlignment="Right" Grid.Row="6" Text="DIFF +/-"/>
+            </Grid>
+            <Grid x:Name="PackingGrid" Margin="578.5,171.334,474.552,10" Background="#FF0D1861">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="229*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="296"/>
+                    <ColumnDefinition Width="16*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="125"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="105"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="105"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="105"/>
+                    <RowDefinition Height="10*"/>
+                </Grid.RowDefinitions>
+                <Border BorderBrush="#FF7C7C7C" BorderThickness="4" Grid.RowSpan="8" Grid.ColumnSpan="4" Margin="0,0,-0.333,-0.333"/>
+                <Grid x:Name="PackLamp" Background="Black" Margin="8.333,0,4.667,0.333" Grid.Column="3" Grid.Row="6"/>
+                <TextBlock x:Name="Picking1" Margin="10,28,9.667,0.333" TextWrapping="Wrap" FontSize="72" Foreground="#FFE6E6E6" TextAlignment="Center" Text="PACKING" Grid.ColumnSpan="4"/>
+                <Grid Background="Black" Grid.Row="6" Grid.Column="2" Margin="5.333,0,2.667,0.333">
+                    <TextBlock x:Name="PackingTarget" TextWrapping="Wrap" Text="99999" Foreground="Red" FontFamily="alarm clock" FontSize="96" TextAlignment="Right">
                         <TextBlock.Effect>
-                            <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="13"/>
+                            <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="18"/>
                         </TextBlock.Effect>
                     </TextBlock>
                 </Grid>
-                <TextBlock x:Name="NewTot" TextWrapping="Wrap" FontSize="36" Foreground="#FFB9B9B9" Text="NEW" TextAlignment="Right" Margin="0,5,0,0" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
-                <TextBlock x:Name="NewTot_Copy" TextWrapping="Wrap" FontSize="36" Foreground="#FFB9B9B9" Text="PICKING" TextAlignment="Right" Grid.Row="2" Margin="0,5,0,0" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
-                <TextBlock x:Name="NewTot_Copy1" TextWrapping="Wrap" FontSize="36" Foreground="#FFB9B9B9" Text="PICKED" TextAlignment="Right" Grid.Row="4" Margin="0,5,0,0" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
-                <TextBlock x:Name="NewTot_Copy2" TextWrapping="Wrap" FontSize="36" Foreground="#FFB9B9B9" Text="PACKING" TextAlignment="Right" Grid.Row="6" Margin="0,5,0,0" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
-                <TextBlock x:Name="NewTot_Copy3" TextWrapping="Wrap" FontSize="36" Foreground="#FFB9B9B9" Text="PACKED" TextAlignment="Right" Grid.Row="8" Margin="0,5,0,0" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
-                <TextBlock x:Name="NewTot_Copy4" TextWrapping="Wrap" FontSize="36" Foreground="#FFB9B9B9" Text="ISSUES" TextAlignment="Right" Grid.Row="14" Margin="0,5,0,0" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
-                <TextBlock x:Name="NewTot_Copy5" TextWrapping="Wrap" FontSize="36" Foreground="#FFB9B9B9" Text="POSTED" TextAlignment="Right" Grid.Row="10" Margin="0,5,0,0" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
-                <TextBlock x:Name="NewTot_Copy6" TextWrapping="Wrap" FontSize="36" Foreground="#FFB9B9B9" Text="PREPACK" TextAlignment="Right" Grid.Row="12" Margin="0,5,0,0" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
-                <TextBlock x:Name="NewTot_Copy7" TextWrapping="Wrap" FontSize="36" Foreground="#FFB9B9B9" Text="OVERSOLD" TextAlignment="Right" Grid.Row="16" Margin="0,5,0,0" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
-                <Grid Background="Black" Grid.Row="8" Grid.Column="2" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
-                    <TextBlock x:Name="PackedCount" TextWrapping="Wrap" Text="0" Foreground="Red" FontFamily="alarm clock" FontSize="48" TextAlignment="Right" Margin="0,4,0,0">
+                <Grid Background="Black" Grid.Row="2" Grid.Column="2" Margin="5.333,0.333,2.667,0">
+                    <TextBlock x:Name="PackingExpected" TextWrapping="Wrap" Text="0" Foreground="Red" FontFamily="alarm clock" FontSize="96" TextAlignment="Right">
                         <TextBlock.Effect>
-                            <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="13"/>
+                            <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="18"/>
                         </TextBlock.Effect>
                     </TextBlock>
                 </Grid>
-                <Grid Background="Black" Grid.Row="10" Grid.Column="2" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
-                    <TextBlock x:Name="PostedCount" TextWrapping="Wrap" Text="0" Foreground="Red" FontFamily="alarm clock" FontSize="48" TextAlignment="Right" Margin="0,4,0,0">
+                <Grid Background="Black" Grid.Row="3" Grid.Column="2" Margin="5.333,79,2.667,79" Grid.RowSpan="3">
+                    <TextBlock x:Name="PackingActual" TextWrapping="Wrap" Text="0" Foreground="Red" FontFamily="alarm clock" FontSize="96" TextAlignment="Right">
                         <TextBlock.Effect>
-                            <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="13"/>
+                            <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="18"/>
                         </TextBlock.Effect>
                     </TextBlock>
                 </Grid>
-                <Grid Background="Black" Grid.Row="12" Grid.Column="2" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
-                    <TextBlock x:Name="PrepackCount" TextWrapping="Wrap" Text="0" Foreground="Red" FontFamily="alarm clock" FontSize="48" TextAlignment="Right" Margin="0,4,0,0">
-                        <TextBlock.Effect>
-                            <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="13"/>
-                        </TextBlock.Effect>
-                    </TextBlock>
+                <TextBlock x:Name="PickTar_Copy3" Margin="4,24.333,0.333,0" TextWrapping="Wrap" FontSize="48" Foreground="#FFB9B9B9" TextAlignment="Right" Grid.Row="2" Text="EXPECTED"/>
+                <TextBlock x:Name="PickTar_Copy4" Margin="4,23.667,0.333,79" TextWrapping="Wrap" FontSize="48" Foreground="#FFB9B9B9" TextAlignment="Right" Grid.Row="4" Text="ACTUAL" Grid.RowSpan="2"/>
+                <TextBlock x:Name="PickTar_Copy5" Margin="4,24,0.333,0.333" TextWrapping="Wrap" FontSize="48" Foreground="#FFB9B9B9" TextAlignment="Right" Grid.Row="6"><Run Text="DIFF +/-"/><LineBreak/><Run Text=""/><LineBreak/><Run/></TextBlock>
+            </Grid>
+            <Grid x:Name="TotalsGrid" Margin="0,11.92,10,10" Background="#FF5D4800" HorizontalAlignment="Right" Width="437.604">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="27.151"/>
+                    <RowDefinition Height="75"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="593"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="92.876"/>
+                    <RowDefinition Height="20"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="10"/>
+                </Grid.ColumnDefinitions>
+                <Border BorderBrush="#FF7C7C7C" BorderThickness="4" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" Grid.RowSpan="7" Grid.ColumnSpan="2"/>
+                <TextBlock x:Name="Totals" TextWrapping="Wrap" FontSize="72" Foreground="#FFE6E6E6" TextAlignment="Center" Text="TOTALS" d:LayoutOverrides="LeftMargin, RightMargin" Grid.ColumnSpan="2" Margin="0,-8.151,0,0" Grid.Row="1"/>
+                <TextBlock x:Name="IssuesTot_Copy1" Margin="20,19.667,0,9" TextWrapping="Wrap" FontSize="48" Foreground="#FFB9B9B9" TextAlignment="Right" Text="TOTAL" Grid.Row="5" HorizontalAlignment="Left" Width="135"/>
+                <Rectangle Fill="Black" Margin="0,1.667,9.333,0" Stroke="Black" Grid.Row="5" HorizontalAlignment="Right" Width="268" Grid.ColumnSpan="2"/>
+                <TextBlock x:Name="totalsCount" Margin="160,6.667,9.333,3" TextWrapping="Wrap" Text="99999" Foreground="Red" FontFamily="alarm clock" FontSize="80" TextAlignment="Right" Grid.Row="5" Grid.ColumnSpan="2">
+                    <TextBlock.Effect>
+                        <DropShadowEffect Color="#FFFF4444" ShadowDepth="0" BlurRadius="9"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+                <Grid x:Name="SmallTotalsGrid" Margin="10,0,-0.512,0" Grid.Row="3" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="26.604"/>
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition Width="7.5"/>
+                        <ColumnDefinition Width="9.5"/>
+                        <ColumnDefinition Width="7.512"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="57"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="57"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="57"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="57"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="57"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="57"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="57"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="57"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="57"/>
+                    </Grid.RowDefinitions>
+                    <Grid Background="Black" Grid.Row="2" Grid.Column="2" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
+                        <TextBlock x:Name="PickingCount" TextWrapping="Wrap" Text="0" Foreground="Red" FontFamily="alarm clock" FontSize="48" TextAlignment="Right" Margin="0,4,0,0">
+                            <TextBlock.Effect>
+                                <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="13"/>
+                            </TextBlock.Effect>
+                        </TextBlock>
+                    </Grid>
+                    <Grid Background="Black" Grid.Row="4" Grid.Column="2" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
+                        <TextBlock x:Name="PickedCount" TextWrapping="Wrap" Text="0" Foreground="Red" FontFamily="alarm clock" FontSize="48" TextAlignment="Right" Margin="0,4,0,0">
+                            <TextBlock.Effect>
+                                <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="13"/>
+                            </TextBlock.Effect>
+                        </TextBlock>
+                    </Grid>
+                    <Grid Background="Black" Grid.Row="6" Grid.Column="2" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
+                        <TextBlock x:Name="PackingCount" TextWrapping="Wrap" Text="0" Foreground="Red" FontFamily="alarm clock" FontSize="48" TextAlignment="Right" Margin="0,4,0,0">
+                            <TextBlock.Effect>
+                                <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="13"/>
+                            </TextBlock.Effect>
+                        </TextBlock>
+                    </Grid>
+                    <Grid Background="Black" Grid.Column="2" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
+                        <TextBlock x:Name="NewCount" TextWrapping="Wrap" Text="0" Foreground="Red" FontFamily="alarm clock" FontSize="48" TextAlignment="Right" Margin="0,4,0,0">
+                            <TextBlock.Effect>
+                                <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="13"/>
+                            </TextBlock.Effect>
+                        </TextBlock>
+                    </Grid>
+                    <TextBlock x:Name="NewTot" TextWrapping="Wrap" FontSize="36" Foreground="#FFB9B9B9" Text="NEW" TextAlignment="Right" Margin="0,5,0,0" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+                    <TextBlock x:Name="NewTot_Copy" TextWrapping="Wrap" FontSize="36" Foreground="#FFB9B9B9" Text="PICKING" TextAlignment="Right" Grid.Row="2" Margin="0,5,0,0" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+                    <TextBlock x:Name="NewTot_Copy1" TextWrapping="Wrap" FontSize="36" Foreground="#FFB9B9B9" Text="PICKED" TextAlignment="Right" Grid.Row="4" Margin="0,5,0,0" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+                    <TextBlock x:Name="NewTot_Copy2" TextWrapping="Wrap" FontSize="36" Foreground="#FFB9B9B9" Text="PACKING" TextAlignment="Right" Grid.Row="6" Margin="0,5,0,0" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+                    <TextBlock x:Name="NewTot_Copy3" TextWrapping="Wrap" FontSize="36" Foreground="#FFB9B9B9" Text="PACKED" TextAlignment="Right" Grid.Row="8" Margin="0,5,0,0" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+                    <TextBlock x:Name="NewTot_Copy4" TextWrapping="Wrap" FontSize="36" Foreground="#FFB9B9B9" Text="ISSUES" TextAlignment="Right" Grid.Row="14" Margin="0,5,0,0" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+                    <TextBlock x:Name="NewTot_Copy5" TextWrapping="Wrap" FontSize="36" Foreground="#FFB9B9B9" Text="POSTED" TextAlignment="Right" Grid.Row="10" Margin="0,5,0,0" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+                    <TextBlock x:Name="NewTot_Copy6" TextWrapping="Wrap" FontSize="36" Foreground="#FFB9B9B9" Text="PREPACK" TextAlignment="Right" Grid.Row="12" Margin="0,5,0,0" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+                    <TextBlock x:Name="NewTot_Copy7" TextWrapping="Wrap" FontSize="36" Foreground="#FFB9B9B9" Text="OVERSOLD" TextAlignment="Right" Grid.Row="16" Margin="0,5,0,0" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"/>
+                    <Grid Background="Black" Grid.Row="8" Grid.Column="2" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
+                        <TextBlock x:Name="PackedCount" TextWrapping="Wrap" Text="0" Foreground="Red" FontFamily="alarm clock" FontSize="48" TextAlignment="Right" Margin="0,4,0,0">
+                            <TextBlock.Effect>
+                                <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="13"/>
+                            </TextBlock.Effect>
+                        </TextBlock>
+                    </Grid>
+                    <Grid Background="Black" Grid.Row="10" Grid.Column="2" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
+                        <TextBlock x:Name="PostedCount" TextWrapping="Wrap" Text="0" Foreground="Red" FontFamily="alarm clock" FontSize="48" TextAlignment="Right" Margin="0,4,0,0">
+                            <TextBlock.Effect>
+                                <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="13"/>
+                            </TextBlock.Effect>
+                        </TextBlock>
+                    </Grid>
+                    <Grid Background="Black" Grid.Row="12" Grid.Column="2" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
+                        <TextBlock x:Name="PrepackCount" TextWrapping="Wrap" Text="0" Foreground="Red" FontFamily="alarm clock" FontSize="48" TextAlignment="Right" Margin="0,4,0,0">
+                            <TextBlock.Effect>
+                                <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="13"/>
+                            </TextBlock.Effect>
+                        </TextBlock>
+                    </Grid>
+                    <Grid Background="Black" Grid.Row="14" Grid.Column="2" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
+                        <TextBlock x:Name="IssueCount" TextWrapping="Wrap" Text="0" Foreground="Red" FontFamily="alarm clock" FontSize="48" TextAlignment="Right" Margin="0,4,0,0">
+                            <TextBlock.Effect>
+                                <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="13"/>
+                            </TextBlock.Effect>
+                        </TextBlock>
+                    </Grid>
+                    <Grid Background="Black" Grid.Row="16" Grid.Column="2" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
+                        <TextBlock x:Name="OversoldCount" TextWrapping="Wrap" Text="0" Foreground="Red" FontFamily="alarm clock" FontSize="48" TextAlignment="Right" Margin="0,4,0,0">
+                            <TextBlock.Effect>
+                                <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="13"/>
+                            </TextBlock.Effect>
+                        </TextBlock>
+                    </Grid>
+                    <Grid x:Name="PrepackLamp" Grid.Column="4" Grid.Row="12" Background="Black"/>
+                    <Grid x:Name="IssuesLamp" Grid.Column="4" Grid.Row="14" Background="Black"/>
                 </Grid>
-                <Grid Background="Black" Grid.Row="14" Grid.Column="2" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
-                    <TextBlock x:Name="IssueCount" TextWrapping="Wrap" Text="0" Foreground="Red" FontFamily="alarm clock" FontSize="48" TextAlignment="Right" Margin="0,4,0,0">
-                        <TextBlock.Effect>
-                            <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="13"/>
-                        </TextBlock.Effect>
-                    </TextBlock>
-                </Grid>
-                <Grid Background="Black" Grid.Row="16" Grid.Column="2" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
-                    <TextBlock x:Name="OversoldCount" TextWrapping="Wrap" Text="0" Foreground="Red" FontFamily="alarm clock" FontSize="48" TextAlignment="Right" Margin="0,4,0,0">
-                        <TextBlock.Effect>
-                            <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="13"/>
-                        </TextBlock.Effect>
-                    </TextBlock>
-                </Grid>
-                <Grid x:Name="PrepackLamp" Grid.Column="4" Grid.Row="12" Background="Black"/>
-                <Grid x:Name="IssuesLamp" Grid.Column="4" Grid.Row="14" Background="Black"/>
+            </Grid>
+            <Grid x:Name="TickerGrid" Height="141" VerticalAlignment="Top" Background="Black" Margin="578,12,475,0" ClipToBounds="True">
+                <TextBlock x:Name="TickerText" Margin="0,34,-2537,-7" Text="          12345678901234567890123456789012345          " FontSize="72" Foreground="Red" FontFamily="LED BOARD REVERSED" RenderTransformOrigin="0.5,0.5" ClipToBounds="True">
+                    <TextBlock.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </TextBlock.RenderTransform>
+                    <TextBlock.Effect>
+                        <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="30"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+                <Border BorderBrush="#FF7C7C7C" BorderThickness="4"/>
             </Grid>
         </Grid>
-        <Grid x:Name="TickerGrid" Height="141" VerticalAlignment="Top" Background="Black" Margin="578,12,475,0" ClipToBounds="True">
-            <TextBlock x:Name="TickerText" Margin="0,34,-2537,-7" Text="          12345678901234567890123456789012345          " FontSize="72" Foreground="Red" FontFamily="LED BOARD REVERSED" RenderTransformOrigin="0.5,0.5" ClipToBounds="True">
-                <TextBlock.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </TextBlock.RenderTransform>
-                <TextBlock.Effect>
-                    <DropShadowEffect Color="Red" ShadowDepth="0" BlurRadius="30"/>
-                </TextBlock.Effect>
-            </TextBlock>
-            <Border BorderBrush="#FF7C7C7C" BorderThickness="4"/>
-        </Grid>
-    </Grid>
+    </Viewbox>
 </Window>
