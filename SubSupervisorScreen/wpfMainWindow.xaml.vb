@@ -131,10 +131,10 @@ Public Class wpfMainWindow
 
         If newDay Then
             Try
-                Dim saletotalcollection As ArrayList = MySQL.SelectData("SELECT SUM(totalValue), TotalDate FROM whldata.newsales_dailysourcetotals WHERE totalDate='" + Now.AddDays(-7).ToString("yyyy-MM-dd") + "' OR totalDate='" + Now.AddDays(-14).ToString("yyyy-MM-dd") + "' OR totalDate='" + Now.AddDays(-21).ToString("yyyy-MM-dd") + "' OR totalDate='" + Now.AddDays(-28).ToString("yyyy-MM-dd") + "'  GROUP BY totalDate;")
+                Dim saletotalcollection = MySQL.SelectDataDictionary("SELECT SUM(totalValue) as Total, TotalDate FROM whldata.newsales_dailysourcetotals WHERE totalDate='" + Now.AddDays(-7).ToString("yyyy-MM-dd") + "' OR totalDate='" + Now.AddDays(-14).ToString("yyyy-MM-dd") + "' OR totalDate='" + Now.AddDays(-21).ToString("yyyy-MM-dd") + "' OR totalDate='" + Now.AddDays(-28).ToString("yyyy-MM-dd") + "'  GROUP BY totalDate;")
                 totalforavgsales = 0
                 For Each selection In saletotalcollection
-                    totalforavgsales += selection(0)
+                    totalforavgsales += selection("Total")
                 Next
                 totalforavgsales = totalforavgsales / saletotalcollection.Count
                 newDay = False
