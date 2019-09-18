@@ -1,7 +1,10 @@
 ﻿Imports System.ComponentModel
+Imports System.ServiceModel
 Imports System.Windows.Media
 Imports WHLClasses
 Imports WHLClasses.Orders
+Imports WHLClasses.Services
+Imports WHLClasses.Services.OrderServer
 
 Public Class wpfMainWindow
     Dim Loader As New GenericDataController
@@ -154,20 +157,18 @@ Public Class wpfMainWindow
 
     End Sub
 
+    Dim OrddefClient As iOSClientChannel = Nothing
+
     Private Sub RefreshOrddef()
         fiveminticker = 0 'Reset timer
 
-        Dim refresh As Boolean = False 'Set the while dependancy
 
-        While Not refresh
-            Application.DoEvents()
-            Try
-                Threading.Thread.Sleep(2000) 'Sleep before checking.
-                CurrentOrddef = Loader.LoadOrddef("T:\AppData\Orders\.orddef",False,True) 'Load the file! Please. Why won't you load?
-                refresh = True 'Success? Exit while loop.
-            Catch ex As Exception
-            End Try
-        End While
+        'Stream orddef
+        If IsNothing(OrddefClient) orelse not OrddefClient.State = CommunicationState.Faulted Then
+            OrddefClient = OrderServer.ConnectChannel("net.tcp://orderserver.ad.whitehinge.com:801/OrderServer/1")
+        End If
+        CurrentOrddef = OrddefClient.StreamOrderDefinition()
+
 
         'Other Stuff
         workersCalculator.NewTotal = CurrentOrddef.GetByStatus(OrderStatus._New).Count.ToString
