@@ -55,7 +55,7 @@ Public Class wpfMainWindow
             If fiveminticker Mod 5 = 0 Then
                 If Now.Hour < 19 And Now.Hour >= 7 Then
 
-                    newCalculator = Loader.LoadAnything("T:\AppData\Analytics\Average.SPAS", False).Value
+                    newCalculator = Loader.LoadAnything(of DayAverageCalculator)("T:\AppData\Analytics\Average.SPAS", False).Value
 
                     PickingExpected.Text = Math.Round(newCalculator.WorkOutAveragePicking).ToString
                     PackingExpected.Text = Math.Round(newCalculator.WorkOutAveragePacking).ToString
